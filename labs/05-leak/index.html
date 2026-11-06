@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 05 · The dialog that never leaves</title>
+  <link rel="stylesheet" href="../lab.css">
+  <style>.dialog { margin-top: 12px; padding: 12px; border: 1px solid #e4e7ec; border-radius: 8px; }</style>
+</head>
+<body><div class="wrap">
+  <p class="crumbs"><a href="../">← All labs</a></p>
+  <span class="tag">Memory</span>
+  <h1>Lab 05 · The dialog that never leaves</h1>
+
+  <div class="mission">
+    <b>Mission:</b> Users who open and close the details dialog many times say the tab gets slower. Prove there's a leak, find what is leaking, and name the variable that keeps it alive.
+  </div>
+
+  <div class="stage">
+    <button class="primary" id="open">Open details</button>
+    <button class="primary" id="close">Close details</button>
+    <button class="primary" id="many">Open + close × 20</button>
+    <div id="slot"></div>
+  </div>
+
+  <details><summary>Hint 1</summary>More tools → <b>Performance monitor</b>. Watch "DOM Nodes" while you click "Open + close × 20" several times.</details>
+  <details><summary>Hint 2</summary>Memory → Heap snapshot. Click the 🧹 button, take a snapshot, click × 20 three times, click 🧹, take another. Switch to <b>Comparison</b> view, or filter the summary by "Detached".</details>
+  <details><summary>Solution</summary>
+    <p>Each dialog builds 500 rows, and closing it removes the dialog from the page. The same dialog element is also pushed into <code>history</code>, which is never cleared, so every closed dialog stays in memory as a <b>detached DOM tree</b>.</p>
+    <p>In the snapshot, filter by <code>Detached</code>, select a <code>Detached HTMLDivElement</code>, and read its <b>Retainers</b>: <code>history</code> → <code>Array</code> → element. To fix it, don't store DOM nodes; store only the data you need (e.g. an id).</p>
+  </details>
+</div>
+<script>
+  const history = []; // "for analytics"
+  let current = null;
+
+  function openDialog() {
+    if (current) return;
+    current = document.createElement('div');
+    current.className = 'dialog';
+    current.innerHTML = '<b>Order details</b>' + Array.from({ length: 500 }, (_, i) => `<div>Line item ${i}</div>`).join('');
+    current.style.maxHeight = '120px';
+    current.style.overflow = 'auto';
+    document.getElementById('slot').appendChild(current);
+    history.push(current);
+  }
+  function closeDialog() {
+    if (!current) return;
+    current.remove();
+    current = null;
+  }
+  document.getElementById('open').onclick = openDialog;
+  document.getElementById('close').onclick = closeDialog;
+  document.getElementById('many').onclick = () => { for (let i = 0; i < 20; i++) { openDialog(); closeDialog(); } };
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+@page {
+  size: A4;
+  margin: 18mm 15mm 18mm 15mm;
+  @bottom-center {
+    content: "DevTools Dojo  ·  " counter(page);
+    font: 500 8.5pt "Inter", -apple-system, "Helvetica Neue", sans-serif;
+    color: #8a94a6;
+  }
+}
+@page :first {
+  margin: 0;
+  @bottom-center { content: none; }
+}
+
+:root {
+  --ink: #1f2633;
+  --muted: #5b6577;
+  --line: #e3e7ee;
+  --soft: #f5f7fb;
+  --accent: #1a73e8;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+  max-width: none;
+  padding: 0;
+}
+
+/* ---------- Cover ---------- */
+.cover {
+  height: 297mm;
+  width: 210mm;
+  padding: 40mm 22mm 25mm;
+  background: linear-gradient(150deg, #0b1f3a 0%, #123a6b 45%, #1a73e8 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+  position: relative;
+  overflow: hidden;
+}
+.cover::after {
+  content: "";
+  position: absolute;
+  right: -60mm; bottom: -60mm;
+  width: 170mm; height: 170mm;
+  border-radius: 50%;
+  border: 18mm solid rgba(255,255,255,0.06);
+}
+.cover .kicker {
+  font-size: 11pt; letter-spacing: 3px; text-transform: uppercase;
+  color: #9cc3ff; font-weight: 600;
+}
+.cover h1.title {
+  font-size: 40pt; line-height: 1.08; margin: 10mm 0 6mm; font-weight: 800;
+  border: none; color: #fff;
+}
+.cover .subtitle { font-size: 15pt; color: #d6e6ff; max-width: 140mm; }
+.cover .chips { margin-top: 14mm; display: flex; flex-wrap: wrap; gap: 3mm; max-width: 160mm; }
+.cover .chips span {
+  font-size: 9.5pt; padding: 1.6mm 4mm; border-radius: 20px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+}
+.cover .foot { margin-top: auto; font-size: 9.5pt; color: #b9cff0; }
+
+/* Hide the markdown's own H1 (shown on the cover) and horizontal rules */
+section.level1 > h1, header#title-block-header { display: none; }
+hr { display: none; }
+
+/* ---------- Mental model card (page 2) ---------- */
+.model {
+  page-break-after: always;
+}
+.model h2.mm { margin-top: 0; }
+.model .grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-top: 5mm;
+}
+.model .card {
+  border: 1px solid var(--line); border-left: 5px solid var(--c);
+  border-radius: 8px; padding: 3.5mm 4.5mm; background: var(--soft);
+  break-inside: avoid;
+}
+.model .card b { display: block; font-size: 11.5pt; color: var(--c); }
+.model .card span { color: var(--muted); font-size: 9.5pt; }
+
+/* ---------- Headings ---------- */
+h2 {
+  page-break-before: always;
+  font-size: 22pt;
+  font-weight: 800;
+  color: #fff;
+  background: var(--sec, var(--accent));
+  margin: 0 0 6mm;
+  padding: 6mm 7mm;
+  border-radius: 10px;
+  letter-spacing: -0.3px;
+}
+h3 {
+  font-size: 14pt;
+  color: var(--sec, var(--accent));
+  margin: 7mm 0 2.5mm;
+  padding-bottom: 1.5mm;
+  border-bottom: 2px solid var(--line);
+  break-after: avoid;
+}
+h4 {
+  font-size: 11.5pt;
+  margin: 5mm 0 2mm;
+  color: var(--ink);
+  break-after: avoid;
+}
+h4::before {
+  content: ""; display: inline-block; width: 8px; height: 8px;
+  border-radius: 2px; background: var(--sec, var(--accent));
+  margin-right: 7px; vertical-align: middle;
+}
+
+/* Per-section colours (sections created by pandoc --section-divs) */
+section.level2 { --sec: #1a73e8; }
+section#table-of-contents { --sec: #3c4a5e; }
+section[id="0-before-the-tabs-the-frame-around-everything"] { --sec: #3c4a5e; }
+section[id="1-elements"] { --sec: #1a73e8; }
+section[id="2-console"] { --sec: #6f42c1; }
+section[id="3-sources"] { --sec: #c2410c; }
+section[id="4-network"] { --sec: #0f9d58; }
+section[id="5-performance"] { --sec: #d93025; }
+section[id="6-memory"] { --sec: #8e24aa; }
+section[id="7-application"] { --sec: #00838f; }
+section[id="8-security"] { --sec: #2e7d32; }
+section[id="9-lighthouse"] { --sec: #e8710a; }
+section[id="10-recorder"] { --sec: #c51162; }
+section[id="11-extension-tabs"] { --sec: #5d4037; }
+section[id="12-hidden-panels-under-more-tools"] { --sec: #455a64; }
+section[id="13-shortcuts-cheat-sheet"] { --sec: #283593; }
+section[id="14-debugging-playbooks-for-real-problems"] { --sec: #b71c1c; }
+section[id="15-hands-on-practice-plan-2-weeks"] { --sec: #00695c; }
+section[id="16-how-to-teach-this-to-others"] { --sec: #4527a0; }
+
+/* ---------- Text ---------- */
+p { margin: 0 0 2.6mm; orphans: 3; widows: 3; }
+ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+li { margin: 0.8mm 0; }
+li > ul, li > ol { margin-top: 0.8mm; margin-bottom: 0.8mm; }
+strong { color: #111827; }
+a { color: var(--sec, var(--accent)); text-decoration: none; }
+
+code {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 8.6pt;
+  background: #eef1f6;
+  color: #b4235a;
+  padding: 0.3mm 1.3mm;
+  border-radius: 4px;
+  word-break: break-word;
+}
+pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 4mm 5mm;
+  font-size: 8.4pt;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  break-inside: avoid;
+  border-left: 4px solid var(--sec, var(--accent));
+  margin: 2mm 0 4mm;
+}
+pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+/* pandoc syntax highlighting tokens on dark bg */
+pre .kw, pre .cf { color: #c792ea; }
+pre .st, pre .ss { color: #c3e88d; }
+pre .co { color: #7f8ea3; font-style: italic; }
+pre .fu { color: #82aaff; }
+pre .dv, pre .fl, pre .bn { color: #f78c6c; }
+pre .at { color: #ffcb6b; }
+pre .ot, pre .op { color: #89ddff; }
+pre .va { color: #f07178; }
+
+blockquote {
+  margin: 3mm 0 4mm;
+  padding: 3mm 5mm;
+  background: #fff8e6;
+  border-left: 5px solid #f4b400;
+  border-radius: 6px;
+  color: #5b4a12;
+  break-inside: avoid;
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* ---------- Tables ---------- */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2.5mm 0 5mm;
+  font-size: 8.8pt;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  table-layout: auto;
+}
+thead { display: table-header-group; }
+th {
+  background: var(--sec, var(--accent));
+  color: #fff;
+  text-align: left;
+  font-weight: 700;
+  padding: 2.2mm 3mm;
+}
+td {
+  padding: 2mm 3mm;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+  word-break: break-word;
+}
+tbody tr:nth-child(even) td { background: var(--soft); }
+tr { break-inside: avoid; }
+th code { background: rgba(255,255,255,0.2); color: #fff; }
+
+/* ---------- TOC page ---------- */
+section#table-of-contents ol {
+  columns: 2; column-gap: 10mm; list-style: none; padding: 0; counter-reset: toc -1;
+  font-size: 11pt;
+}
+section#table-of-contents li {
+  counter-increment: toc;
+  break-inside: avoid;
+  padding: 2.4mm 0 2.4mm 11mm;
+  position: relative;
+  border-bottom: 1px dashed var(--line);
+}
+section#table-of-contents li::before {
+  content: counter(toc);
+  position: absolute; left: 0; top: 2mm;
+  width: 7.5mm; height: 7.5mm; line-height: 7.5mm; text-align: center;
+  border-radius: 50%; background: #3c4a5e; color: #fff; font-weight: 700; font-size: 9pt;
+}
+section#table-of-contents a { color: var(--ink); font-weight: 600; }
+
+/* Intro note duplicates the cover footer */
+section.level1 > blockquote:first-of-type { display: none; }
+
+/* Readable syntax colours on dark code blocks (override pandoc defaults) */
+pre code span { color: #e2e8f0 !important; background: none !important; font-weight: normal !important; }
+pre code span.kw, pre code span.cf { color: #c792ea !important; }
+pre code span.st, pre code span.ss, pre code span.vs { color: #c3e88d !important; }
+pre code span.co { color: #8a9bb4 !important; font-style: italic; }
+pre code span.fu { color: #82aaff !important; }
+pre code span.dv, pre code span.fl, pre code span.bn, pre code span.cn { color: #f78c6c !important; }
+pre code span.at { color: #ffcb6b !important; }
+pre code span.ot, pre code span.op { color: #89ddff !important; }
+pre code span.va, pre code span.bu { color: #f07178 !important; }
+
+/* Keep headings and lead-in lines with what follows */
+h3, h4 { break-after: avoid; page-break-after: avoid; }
+p:has(+ pre), p:has(+ table), p:has(+ ul), h3 + p { break-after: avoid; page-break-after: avoid; }
+section[id="17-practice-labs"] { --sec: #00695c; }

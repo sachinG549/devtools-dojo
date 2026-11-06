@@ -1,0 +1,10 @@
+{
+  "id": "ORD-1042",
+  "customer": "jane@example.com",
+  "items": [
+    { "sku": "KB-01", "name": "Keyboard", "qty": 1, "price_cents": 2000 },
+    { "sku": "MS-02", "name": "Mouse", "qty": 1, "price_cents": 1000 }
+  ],
+  "total_cents": 3000,
+  "currency": "USD"
+}

@@ -1,0 +1,82 @@
+:root {
+  --tb-surface: #f6f7fb;
+  --tb-card: #ffffff;
+  --tb-text: #1f2633;
+  --tb-muted: #667085;
+  --tb-accent: #4f46e5;
+  --tb-border: #e4e7ec;
+}
+
+* { box-sizing: border-box; }
+
+body#app {
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font: 15px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--tb-surface, #fff);
+  color: var(--tb-text, #1f2633);
+}
+
+/* Less specific rule: its background-color is overridden (shows as strikethrough in Styles) */
+body { background-color: white; -ms-overflow-style: -ms-autohiding-scrollbar; }
+
+.tb-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: var(--tb-accent);
+  color: #fff;
+}
+.tb-header h1 { font-size: 20px; margin: 0; }
+.tb-logo { color: #fff; text-decoration: none; opacity: .85; }
+.tb-header input {
+  flex: 1;
+  max-width: 360px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  font: inherit;
+}
+.tb-sync { margin-left: auto; font-size: 13px; opacity: .85; }
+
+.tb-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 24px;
+}
+.tb-col {
+  background: #eef0f6;
+  border-radius: 12px;
+  padding: 12px;
+  min-height: 300px;
+}
+.tb-col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--tb-muted); margin: 4px 4px 12px; }
+.tb-list { display: flex; flex-direction: column; gap: 10px; }
+
+.tb-card {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: var(--tb-card);
+  border: 1px solid var(--tb-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform .12s, box-shadow .12s;
+}
+.tb-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(16, 24, 40, .08); }
+.tb-card:focus-visible { outline: 3px solid var(--tb-accent); outline-offset: 2px; }
+.tb-avatar { border-radius: 50%; flex: none; background: #ddd; }
+.tb-key { font-size: 12px; font-weight: 700; color: var(--tb-accent); }
+.tb-title { margin: 2px 0 4px; font-weight: 600; }
+.tb-meta { font-size: 12px; color: var(--tb-muted); }
+
+.tb-footer { padding: 0 24px 24px; color: var(--tb-muted); font-size: 13px; }
+.tb-error { grid-column: 1 / -1; color: #b42318; }
+
+@media (max-width: 720px) {
+  .tb-board { grid-template-columns: 1fr; }
+  .tb-header { flex-wrap: wrap; }
+}

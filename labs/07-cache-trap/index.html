@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 07 · "I deployed, but users still see the old version"</title>
+  <link rel="stylesheet" href="../lab.css">
+</head>
+<body><div class="wrap">
+  <p class="crumbs"><a href="../">← All labs</a></p>
+  <span class="tag">Application</span>
+  <h1>Lab 07 · "I deployed, but users still see the old version"</h1>
+
+  <div class="mission">
+    <b>Mission:</b> Version <code>2.0.0</code> was "deployed": the <b>Simulate deploy</b> button below makes the server return 2.0.0. The page keeps showing 1.0.0, even after a hard reload. Find out who is serving the old file, and get the new version to show.
+  </div>
+
+  <div class="stage">
+    <p>Running version: <b id="ver">…</b> <span id="msg" class="result"></span></p>
+    <button class="primary" id="check">Check for updates</button>
+    <button class="primary" id="deploy">Simulate deploy of 2.0.0</button>
+    <p class="result" id="server"></p>
+  </div>
+
+  <details><summary>Hint 1</summary>Network → click <code>version.json</code>. What does the <b>Size</b> column say? Does ticking "Disable cache" help?</details>
+  <details><summary>Hint 2</summary>Application → <b>Service workers</b> and <b>Cache storage</b>.</details>
+  <details><summary>Solution</summary>
+    <p>A service worker answers <code>version.json</code> from Cache storage (<code>lab07-v1</code>) and never goes to the network. Network shows <code>(ServiceWorker)</code> in Size. "Disable cache" and hard reload only bypass the HTTP cache, not a service worker's cache.</p>
+    <p>Fix it in DevTools: Application → Service workers → tick <b>Bypass for network</b> (or <b>Unregister</b>), or Cache storage → delete <code>lab07-v1</code>. Then reload. In real code, use a network-first strategy for version files, or version the cache name on each deploy.</p>
+  </details>
+</div>
+<script>
+  // "deploy" = the next network fetch will carry ?v=2, which this page reads as version 2.0.0.
+  async function check() {
+    const res = await fetch('version.json?ts=' + Date.now());
+    let data = await res.json();
+    if (res.headers.get('x-sw') === null && localStorage.getItem('lab07_deployed')) {
+      data = { version: '2.0.0', message: 'New release 🎉' };
+    }
+    document.getElementById('ver').textContent = data.version;
+    document.getElementById('msg').textContent = data.message;
+  }
+  document.getElementById('check').onclick = check;
+  document.getElementById('deploy').onclick = () => {
+    localStorage.setItem('lab07_deployed', '1');
+    document.getElementById('server').textContent = 'Server now returns 2.0.0. Reload the page.';
+  };
+  navigator.serviceWorker.register('sw.js').then(() => navigator.serviceWorker.ready).then(check);
+</script>
+</body>
+</html>

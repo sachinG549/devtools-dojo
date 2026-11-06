@@ -1,0 +1,15 @@
+name: Lab idea
+description: Suggest a new bug-hunt lab
+labels: [lab]
+body:
+  - type: textarea
+    id: bug
+    attributes: { label: The bug, description: "What's broken, as the learner sees it" }
+    validations: { required: true }
+  - type: input
+    id: tab
+    attributes: { label: Tab that finds it, placeholder: "e.g. Sources → XHR/fetch breakpoints" }
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes: { label: Why it's a useful lesson }

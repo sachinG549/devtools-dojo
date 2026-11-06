@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 02 · Nothing happens, no error</title>
+  <link rel="stylesheet" href="../lab.css">
+</head>
+<body><div class="wrap">
+  <p class="crumbs"><a href="../">← All labs</a></p>
+  <span class="tag">Sources</span>
+  <h1>Lab 02 · Nothing happens, no error</h1>
+
+  <div class="mission">
+    <b>Mission:</b> Clicking "Calculate total" should show the cart total. Nothing happens and the Console is empty. Find the exact line that fails and the value that causes it.
+  </div>
+
+  <div class="stage">
+    <button class="primary" id="calc">Calculate total</button>
+    <p class="result" id="result">Total: –</p>
+  </div>
+
+  <details><summary>Hint 1</summary>An empty Console doesn't mean there was no error. Something might be catching it and staying quiet.</details>
+  <details><summary>Hint 2</summary>Sources → right pane → Breakpoints → tick <b>Pause on caught exceptions</b>, then click the button again.</details>
+  <details><summary>Solution</summary>
+    <p>The debugger pauses inside <code>priceOf()</code> on <code>item.price.amount</code>. In the <b>Scope</b> pane, <code>item</code> is the third cart entry, <code>{ name: 'Gift card' }</code>, which has no <code>price</code> field. The resulting <code>TypeError</code> is caught by an empty <code>catch {}</code> block, so nothing gets logged.</p>
+    <p><b>Lessons:</b> empty <code>catch</code> blocks hide bugs. "Pause on caught exceptions" finds them, and the Call Stack shows how execution got there.</p>
+  </details>
+</div>
+<script>
+  const cart = [
+    { name: 'Keyboard', price: { amount: 49 } },
+    { name: 'Mouse', price: { amount: 25 } },
+    { name: 'Gift card' },
+    { name: 'Cable', price: { amount: 9 } },
+  ];
+
+  function priceOf(item) {
+    return item.price.amount;
+  }
+
+  function total(items) {
+    return items.reduce((sum, item) => sum + priceOf(item), 0);
+  }
+
+  document.getElementById('calc').addEventListener('click', () => {
+    try {
+      document.getElementById('result').textContent = 'Total: $' + total(cart);
+    } catch {
+      // TODO: handle errors properly
+    }
+  });
+</script>
+</body>
+</html>

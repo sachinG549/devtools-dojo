@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 01 · The button that won't click</title>
+  <link rel="stylesheet" href="../lab.css">
+  <style>
+    .promo { position: absolute; inset: 0; background: rgba(255,255,255,0); z-index: 5; }
+    .stage button { position: relative; z-index: 1; }
+  </style>
+</head>
+<body><div class="wrap">
+  <p class="crumbs"><a href="../">← All labs</a></p>
+  <span class="tag">Elements</span>
+  <h1>Lab 01 · The button that won't click</h1>
+
+  <div class="mission">
+    <b>Mission:</b> The "Save" button below does nothing when clicked. There are no console errors, and the click handler is correct. Find out why, and make the button work without editing this file.
+  </div>
+
+  <div class="stage">
+    <button class="primary" id="save">Save</button>
+    <p class="result" id="result">Not saved yet.</p>
+    <div class="promo" aria-hidden="true"></div>
+  </div>
+
+  <details><summary>Hint 1</summary>Use the element picker (<code>Cmd + Shift + C</code>) and hover over the button. Which element gets highlighted?</details>
+  <details><summary>Hint 2</summary>Check the picked element's <code>position</code>, <code>inset</code> and <code>z-index</code> in the Styles pane.</details>
+  <details><summary>Solution</summary>
+    <p>An invisible <code>div.promo</code> (fully transparent background, <code>position: absolute; inset: 0; z-index: 5</code>) covers the whole stage, so it receives every click.</p>
+    <p>Fix it live in any of these ways: select <code>.promo</code> and press <code>Delete</code>; add <code>pointer-events: none</code> to it; or lower its <code>z-index</code> below the button's.</p>
+    <p><b>Real-world version:</b> cookie banners, invisible modals that didn't close, and tooltips left behind after an animation.</p>
+  </details>
+</div>
+<script>
+  document.getElementById('save').addEventListener('click', () => {
+    document.getElementById('result').textContent = '✅ Saved! You found it.';
+  });
+</script>
+</body>
+</html>

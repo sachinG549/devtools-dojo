@@ -1,0 +1,29 @@
+<div class="cover">
+  <div class="kicker">DevTools Dojo · Field Guide</div>
+  <h1 class="title">Chrome DevTools<br>Inside Out</h1>
+  <div class="subtitle">Every tab, every option, why it exists and what problem it solves. Built to learn from, use daily, and teach others.</div>
+  <div class="chips">
+    <span>Elements</span><span>Console</span><span>Sources</span><span>Network</span>
+    <span>Performance</span><span>Memory</span><span>Application</span><span>Security</span>
+    <span>Lighthouse</span><span>Recorder</span><span>More tools</span><span>Playbooks</span><span>Practice plan</span>
+  </div>
+  <div class="foot">Written for Chrome on macOS. On Windows/Linux, replace Cmd with Ctrl and Option with Alt.<br>Read online and practise in the browser: sachinG549.github.io/devtools-dojo</div>
+</div>
+
+<div class="model">
+  <h2 class="mm" style="page-break-before:avoid;background:#3c4a5e">The mental model: one line per tab</h2>
+  <p>If you remember only one page, remember this one. Every debugging session starts by picking the right tab for the question you're asking.</p>
+  <div class="grid">
+    <div class="card" style="--c:#1a73e8"><b>Elements</b><span>What is on the page right now (the live DOM and its CSS).</span></div>
+    <div class="card" style="--c:#6f42c1"><b>Console</b><span>Read the page's messages and run JavaScript inside the page.</span></div>
+    <div class="card" style="--c:#c2410c"><b>Sources</b><span>Pause the code and step through it line by line.</span></div>
+    <div class="card" style="--c:#0f9d58"><b>Network</b><span>What the page asked the server for, and what it got back.</span></div>
+    <div class="card" style="--c:#d93025"><b>Performance</b><span>What the browser was busy doing, millisecond by millisecond.</span></div>
+    <div class="card" style="--c:#8e24aa"><b>Memory</b><span>What the page is holding on to, and why it isn't freed.</span></div>
+    <div class="card" style="--c:#00838f"><b>Application</b><span>What the site stored on your machine: cookies, storage, caches, service workers.</span></div>
+    <div class="card" style="--c:#2e7d32"><b>Security</b><span>Whether the connection and its certificate can be trusted.</span></div>
+    <div class="card" style="--c:#e8710a"><b>Lighthouse</b><span>An automated report card: performance, accessibility, best practices, SEO.</span></div>
+    <div class="card" style="--c:#c51162"><b>Recorder</b><span>Record user steps, replay them, and export them as tests.</span></div>
+  </div>
+  <blockquote style="margin-top:7mm"><p><strong>The first skill to learn and teach:</strong> open the request in Network and look at its Response. If the data is wrong, the bug is in the backend. If the data is right but the screen shows it wrong, the bug is in the frontend.</p></blockquote>
+</div>

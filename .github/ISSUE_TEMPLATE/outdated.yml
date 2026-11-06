@@ -1,0 +1,16 @@
+name: Outdated / incorrect
+description: Something in the guide no longer matches Chrome, or is wrong
+labels: [content]
+body:
+  - type: input
+    id: page
+    attributes: { label: Page or section, placeholder: "docs/04-network.md → Filter row" }
+    validations: { required: true }
+  - type: input
+    id: chrome
+    attributes: { label: Chrome version, placeholder: "from chrome://version" }
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes: { label: What's wrong, and what it should say }
+    validations: { required: true }

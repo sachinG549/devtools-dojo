@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 06 · Logged out after one minute</title>
+  <link rel="stylesheet" href="../lab.css">
+</head>
+<body><div class="wrap">
+  <p class="crumbs"><a href="../">← All labs</a></p>
+  <span class="tag">Application</span>
+  <h1>Lab 06 · Logged out after one minute</h1>
+
+  <div class="mission">
+    <b>Mission:</b> After "logging in", users get logged out about a minute later, and also when they open a second page of the site. Find both causes using the Application panel only.
+  </div>
+
+  <div class="stage">
+    <button class="primary" id="login">Log in</button>
+    <button class="primary" id="logout">Log out</button>
+    <p class="result" id="state"></p>
+  </div>
+
+  <details><summary>Hint 1</summary>Application → Storage → Cookies → this origin. Look at the <b>Expires / Max-Age</b> and <b>Path</b> columns for <code>lab_session</code>.</details>
+  <details><summary>Hint 2</summary>Also look at Session storage and Local storage. Which one does the app check, and which one survives a new tab?</details>
+  <details><summary>Solution</summary>
+    <p><b>Cause 1:</b> the cookie is set with <code>max-age=60</code>, so it expires after 60 seconds. The Expires column shows a time one minute in the future.</p>
+    <p><b>Cause 2:</b> the cookie's <code>Path</code> is limited to this lab's folder (<code>/…/06-cookie-logout/</code>), so other pages of the site never receive it. The app also stores its user profile in <b>Session storage</b>, which is per tab, so a new tab starts empty.</p>
+    <p>Practise: edit the cookie's Expires value by double-clicking it, delete the cookie to simulate an expired session, and run <code>document.cookie</code> in the Console to see what JavaScript can read.</p>
+  </details>
+</div>
+<script>
+  const here = location.pathname.replace(/[^/]*$/, '');
+  function show() {
+    const loggedIn = document.cookie.split('; ').some((c) => c.startsWith('lab_session='));
+    const user = sessionStorage.getItem('lab_user');
+    document.getElementById('state').textContent = loggedIn
+      ? `✅ Logged in as ${user || 'unknown (profile missing!)'}`
+      : '🔒 Logged out';
+  }
+  document.getElementById('login').onclick = () => {
+    document.cookie = `lab_session=s_${Math.random().toString(36).slice(2)}; max-age=60; path=${here}; SameSite=Lax`;
+    sessionStorage.setItem('lab_user', 'jane@example.com');
+    localStorage.setItem('lab_last_login', new Date().toISOString());
+    show();
+  };
+  document.getElementById('logout').onclick = () => {
+    document.cookie = `lab_session=; max-age=0; path=${here}`;
+    sessionStorage.removeItem('lab_user');
+    show();
+  };
+  show();
+  setInterval(show, 2000);
+</script>
+</body>
+</html>

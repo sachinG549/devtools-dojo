@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-color-mode="light">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TaskBoard · DevTools Dojo playground</title>
+  <script>performance.mark('app:render-start');</script>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body id="app" class="tb-theme">
+  <header class="tb-header">
+    <a class="tb-logo" href="../">⬅ Labs</a>
+    <h1>TaskBoard</h1>
+    <input id="search" type="search" placeholder="Filter tasks (e.g. TB-3, Asha)" aria-label="Filter tasks">
+    <span id="sync" class="tb-sync" title="Last heartbeat">connecting…</span>
+  </header>
+
+  <main id="board" class="tb-board">
+    <section class="tb-col" data-status="todo"><h2>To do</h2><div class="tb-list"></div></section>
+    <section class="tb-col" data-status="doing"><h2>In progress</h2><div class="tb-list"></div></section>
+    <section class="tb-col" data-status="done"><h2>Done</h2><div class="tb-list"></div></section>
+  </main>
+
+  <footer class="tb-footer">
+    A practice app for <a href="https://sachinG549.github.io/devtools-dojo/">DevTools Dojo</a>.
+    Click a card to move it to the next column. Nothing here is real; break whatever you like.
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

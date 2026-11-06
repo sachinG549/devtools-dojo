@@ -1,0 +1,35 @@
+name: Build PDF
+
+on:
+  push:
+    tags: ["v*"]
+  pull_request:
+    paths: ["docs/**", "pdf/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pandoc and fonts
+        run: sudo apt-get update && sudo apt-get install -y pandoc fonts-inter fonts-noto-color-emoji
+      - uses: browser-actions/setup-chrome@v1
+        id: chrome
+      - name: Build PDF
+        run: CHROME="${{ steps.chrome.outputs.chrome-path }}" ./pdf/build.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DevTools-Dojo-pdf
+          path: dist/DevTools-Dojo.pdf
+      - name: Attach to release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 \
+            || gh release create "$GITHUB_REF_NAME" --title "DevTools Dojo $GITHUB_REF_NAME" --notes "Guide as a PDF. Read online: https://sachinG549.github.io/devtools-dojo/"
+          gh release upload "$GITHUB_REF_NAME" dist/DevTools-Dojo.pdf --clobber

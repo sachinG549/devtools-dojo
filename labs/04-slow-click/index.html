@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 04 · The sluggish filter</title>
+  <link rel="stylesheet" href="../lab.css">
+  <style>#list { columns: 3; font-size: 13px; color: #667085; max-height: 220px; overflow: auto; }</style>
+</head>
+<body><div class="wrap">
+  <p class="crumbs"><a href="../">← All labs</a></p>
+  <span class="tag">Performance</span>
+  <h1>Lab 04 · The sluggish filter</h1>
+
+  <div class="mission">
+    <b>Mission:</b> Typing in the filter box feels frozen. Measure how bad it is (INP), find the function responsible, and explain what it does wrong.
+  </div>
+
+  <div class="stage">
+    <input id="q" placeholder="Type a name, e.g. ana" style="font:inherit;padding:8px 12px;width:100%;max-width:320px">
+    <p class="result">Showing <b id="count">0</b> people</p>
+    <ul id="list"></ul>
+  </div>
+
+  <details><summary>Hint 1</summary>Open Performance and type in the box. Watch the <b>INP</b> card under Live metrics. Set CPU throttling to 4× to make the problem clearer.</details>
+  <details><summary>Hint 2</summary>Record a trace while typing a few letters. Find the long task (red triangle) and open <b>Bottom-Up</b>, sorted by Self time.</details>
+  <details><summary>Solution</summary>
+    <p>On every keystroke, <code>slowNormalize()</code> rebuilds a huge string for each of the 2,000 names. That turns each keystroke into a long task of hundreds of milliseconds, which pushes INP into the red.</p>
+    <p><b>Fix:</b> normalise each name once when the list loads, debounce the input, and do only cheap work in the handler. Bottom-Up shows <code>slowNormalize</code> at the top by Self time, and its source link takes you to the line.</p>
+  </details>
+</div>
+<script>
+  const first = ['ana', 'ben', 'chen', 'dara', 'eli', 'fatima', 'gus', 'hana', 'ivan', 'jo'];
+  const last = ['silva', 'kim', 'patel', 'novak', 'okafor', 'rossi', 'sato', 'meyer'];
+  const people = Array.from({ length: 2000 }, (_, i) => `${first[i % 10]} ${last[i % 8]} ${i}`);
+
+  function slowNormalize(s) {
+    let out = '';
+    for (let i = 0; i < 1500; i++) out = (s + out).slice(0, 200).toLowerCase();
+    return out;
+  }
+
+  function render() {
+    const q = document.getElementById('q').value.toLowerCase();
+    const hits = people.filter((p) => slowNormalize(p).includes(q));
+    document.getElementById('count').textContent = hits.length;
+    document.getElementById('list').innerHTML = hits.slice(0, 60).map((p) => `<li>${p}</li>`).join('');
+  }
+  document.getElementById('q').addEventListener('input', render);
+  render();
+</script>
+</body>
+</html>

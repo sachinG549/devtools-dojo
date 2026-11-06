@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 03 · Frontend or backend?</title>
+  <link rel="stylesheet" href="../lab.css">
+</head>
+<body><div class="wrap">
+  <p class="crumbs"><a href="../">← All labs</a></p>
+  <span class="tag">Network</span>
+  <h1>Lab 03 · Frontend or backend?</h1>
+
+  <div class="mission">
+    <b>Mission:</b> A customer says their order total is wrong: it shows <b>$0.30</b> but they paid much more. Decide whether this is a backend bug or a frontend bug, and prove it.
+  </div>
+
+  <div class="stage">
+    <p>Order <b id="order">…</b></p>
+    <p>Total: <b id="total">…</b></p>
+    <button class="primary" id="reload">Reload order</button>
+  </div>
+
+  <details><summary>Hint 1</summary>Open Network → Fetch/XHR and click Reload order. Find the <code>order.json</code> request.</details>
+  <details><summary>Hint 2</summary>Compare the <b>Preview</b> tab with what the page shows. Then check the Initiator to find the code that renders it.</details>
+  <details><summary>Solution</summary>
+    <p>The response has <code>"total_cents": 3000</code> and <code>"currency": "USD"</code>. That's $30.00, so the <b>backend is correct</b>.</p>
+    <p>The frontend divides by 10,000 instead of 100 (<code>formatMoney()</code>), so it shows $0.30. It's a <b>frontend bug</b>. Click the Initiator link to jump to the fetch, or search all sources (<code>Cmd + Option + F</code>) for <code>10000</code>.</p>
+    <p>This is Playbook A from the guide: right data in the Response and wrong data on screen means a frontend bug.</p>
+  </details>
+</div>
+<script>
+  function formatMoney(cents) {
+    return '$' + (cents / 10000).toFixed(2);
+  }
+  async function load() {
+    const res = await fetch('order.json', { cache: 'no-store' });
+    const order = await res.json();
+    document.getElementById('order').textContent = order.id;
+    document.getElementById('total').textContent = formatMoney(order.total_cents);
+  }
+  document.getElementById('reload').addEventListener('click', load);
+  load();
+</script>
+</body>
+</html>

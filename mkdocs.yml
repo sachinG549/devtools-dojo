@@ -1,0 +1,70 @@
+site_name: DevTools Dojo
+site_description: Learn Chrome DevTools inside out. Every tab, every option, with hands-on bug-hunt labs.
+site_author: Sachin Gautam
+site_url: https://sachinG549.github.io/devtools-dojo/
+repo_url: https://github.com/sachinG549/devtools-dojo
+repo_name: sachinG549/devtools-dojo
+edit_uri: edit/main/docs/
+copyright: Text CC BY 4.0 · Lab code MIT
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: blue
+      toggle: { icon: material/weather-night, name: Dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: blue
+      toggle: { icon: material/weather-sunny, name: Light mode }
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc: { permalink: true }
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight: { anchor_linenums: true }
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Basics (top bar, Command Menu, drawer): 00-basics.md
+  - The panels:
+      - Elements: 01-elements.md
+      - Console: 02-console.md
+      - Sources: 03-sources.md
+      - Network: 04-network.md
+      - Performance: 05-performance.md
+      - Memory: 06-memory.md
+      - Application: 07-application.md
+      - Security: 08-security.md
+      - Lighthouse: 09-lighthouse.md
+      - Recorder: 10-recorder.md
+      - Extension tabs: 11-extensions.md
+      - More tools: 12-more-tools.md
+  - Use it daily:
+      - Shortcuts: 13-shortcuts.md
+      - Debugging playbooks: 14-playbooks.md
+  - Practice:
+      - Labs: practice-labs.md
+      - 2-week plan: 15-practice-plan.md
+  - Teach it: 16-teaching.md
