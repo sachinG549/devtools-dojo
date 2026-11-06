@@ -13,10 +13,10 @@ permissions:
 jobs:
   pdf:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Install pandoc and fonts
-        run: sudo apt-get update && sudo apt-get install -y pandoc fonts-inter fonts-noto-color-emoji
+      - uses: pandoc/actions/setup@v1
       - uses: browser-actions/setup-chrome@v1
         id: chrome
       - name: Build PDF
