@@ -1,5 +1,14 @@
 # 6. Memory
 
+!!! example "Try it now: a 5-minute mission"
+    The tab gets slower every time a dialog opens and closes. Something never gets freed.
+
+    [Start the mission →](https://sachinG549.github.io/devtools-dojo/labs/05-leak/){ .md-button .md-button--primary target=_blank }
+
+![Memory panel in Chrome DevTools, inspecting TaskBoard](assets/panel-memory.png){ loading=lazy }
+
+*Screenshot: the real panel, open on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/){target=_blank}. Open it in another window and follow along.*
+
 ### What it is
 
 Tools to see **what JavaScript objects are in memory, how big they are, and what keeps them alive**.

@@ -1,5 +1,14 @@
 # 1. Elements
 
+!!! example "Try it now: a 5-minute mission"
+    A Save button does nothing when clicked. No errors. What's stealing the click?
+
+    [Start the mission →](https://sachinG549.github.io/devtools-dojo/labs/01-hidden-button/){ .md-button .md-button--primary target=_blank }
+
+![Elements panel in Chrome DevTools, inspecting TaskBoard](assets/panel-elements.png){ loading=lazy }
+
+*Screenshot: the real panel, open on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/){target=_blank}. Open it in another window and follow along.*
+
 ### What it is
 
 A live view of the **DOM** (Document Object Model): the browser's in-memory tree of the page. Important difference: **View Page Source (`Cmd + Option + U`) shows the HTML the server sent. Elements shows the DOM right now**, after JavaScript (React, Vue, or plain JS) has added, removed and changed nodes.
@@ -14,7 +23,7 @@ A live view of the **DOM** (Document Object Model): the browser's in-memory tree
 
 ### Reading a real DOM tree
 
-A typical modern app's tree looks like this (TaskBoard uses the same patterns):
+A typical modern app's tree looks like this ([TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/) uses the same patterns):
 
 ```html
 <html data-theme="light" data-color-mode="light" lang="en">
@@ -31,21 +40,22 @@ A typical modern app's tree looks like this (TaskBoard uses the same patterns):
 
 ### The DOM tree: what you can do
 
-| Action | How |
-|---|---|
-| Edit text / attribute | Double-click it |
-| Edit as raw HTML | Right-click → **Edit as HTML** (or `F2`) |
-| Add attribute | Right-click → **Add attribute** |
-| Delete node | Select → `Delete` key (undo with `Cmd + Z`) |
-| Hide node | Select → press `H` (toggles `visibility: hidden`) |
-| Move node | Drag it to a new place in the tree |
-| Force state | Right-click → **Force state** → `:hover`, `:focus`, `:active`, `:visited`, `:focus-within`, `:focus-visible`, `:target` |
-| Search the DOM | `Cmd + F` inside the tree. Accepts text, a **CSS selector** (`.tb-theme > div`) or **XPath** (`//button[@type="submit"]`) |
-| Scroll page to node | Right-click → **Scroll into view** |
-| Screenshot one node | Right-click → **Capture node screenshot** |
-| Use node in Console | Right-click → **Store as global variable** (becomes `temp1`) |
-| Copy a reference | Right-click → **Copy** → **Copy selector**, **Copy JS path**, **Copy XPath**, **Copy full XPath**, **Copy styles**, **Copy outerHTML**, **Copy element** |
-| Watch for changes | Right-click → **Break on** → **subtree modifications**, **attribute modifications**, **node removal**. JS pauses in Sources at the line that changed it. |
+??? info "Reference table (13 rows), click to expand"
+    | Action | How |
+    |---|---|
+    | Edit text / attribute | Double-click it |
+    | Edit as raw HTML | Right-click → **Edit as HTML** (or `F2`) |
+    | Add attribute | Right-click → **Add attribute** |
+    | Delete node | Select → `Delete` key (undo with `Cmd + Z`) |
+    | Hide node | Select → press `H` (toggles `visibility: hidden`) |
+    | Move node | Drag it to a new place in the tree |
+    | Force state | Right-click → **Force state** → `:hover`, `:focus`, `:active`, `:visited`, `:focus-within`, `:focus-visible`, `:target` |
+    | Search the DOM | `Cmd + F` inside the tree. Accepts text, a **CSS selector** (`.tb-theme > div`) or **XPath** (`//button[@type="submit"]`) |
+    | Scroll page to node | Right-click → **Scroll into view** |
+    | Screenshot one node | Right-click → **Capture node screenshot** |
+    | Use node in Console | Right-click → **Store as global variable** (becomes `temp1`) |
+    | Copy a reference | Right-click → **Copy** → **Copy selector**, **Copy JS path**, **Copy XPath**, **Copy full XPath**, **Copy styles**, **Copy outerHTML**, **Copy element** |
+    | Watch for changes | Right-click → **Break on** → **subtree modifications**, **attribute modifications**, **node removal**. JS pauses in Sources at the line that changed it. |
 
 **Copy selector / Copy JS path** are what QA and automation engineers use to write Selenium/Playwright/Cypress locators.
 

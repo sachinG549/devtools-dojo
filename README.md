@@ -1,10 +1,25 @@
-# DevTools Dojo
+# DevTools Dojo 🥋
 
-**Learn Chrome DevTools inside out.** Every tab, every option, why it exists and what problem it solves, plus hands-on bug-hunt labs you can open in the browser with nothing to install.
+**8 broken pages. Fix them with Chrome DevTools.**
 
-- 📖 **Read online:** https://sachinG549.github.io/devtools-dojo/
-- 🧪 **Practice labs:** https://sachinG549.github.io/devtools-dojo/labs/
-- 📄 **PDF:** [latest release](https://github.com/sachinG549/devtools-dojo/releases/latest)
+Learn DevTools by doing: each mission is a small web page with one real-world bug. Find it with DevTools, type your answer, earn your belt. Free, nothing to install, about 60 minutes. A complete reference guide explains every tab and option when you want the theory.
+
+### ▶️ [Start mission 1](https://sachinG549.github.io/devtools-dojo/labs/00-warm-up/) · [Mission map](https://sachinG549.github.io/devtools-dojo/labs/) · [Reference guide](https://sachinG549.github.io/devtools-dojo/) · [PDF](https://github.com/sachinG549/devtools-dojo/releases/latest)
+
+![DevTools Dojo: 8 broken pages, fix them with DevTools](docs/assets/og-card.png)
+
+| # | Mission | Tab | Time |
+|---|---|---|---|
+| 1 | The hidden code | Elements + Console | 2 min |
+| 2 | The button that won't click | Elements | 5 min |
+| 3 | Nothing happens, no error | Sources | 8 min |
+| 4 | Frontend or backend? | Network | 6 min |
+| 5 | The sluggish filter | Performance | 10 min |
+| 6 | The dialog that never leaves | Memory | 12 min |
+| 7 | Logged out after one minute | Application | 8 min |
+| 8 | "I deployed, but…" | Application | 8 min |
+
+Answers are checked on the page, hints unlock one at a time, and progress is saved in your browser (no account, no tracking).
 
 ## Who it's for
 
@@ -17,7 +32,7 @@ Developers, QA engineers and support engineers who open DevTools every day but o
 | [Basics](docs/00-basics.md) | Top bar, Command Menu, drawer, settings worth turning on |
 | Panels | [Elements](docs/01-elements.md) · [Console](docs/02-console.md) · [Sources](docs/03-sources.md) · [Network](docs/04-network.md) · [Performance](docs/05-performance.md) · [Memory](docs/06-memory.md) · [Application](docs/07-application.md) · [Security](docs/08-security.md) · [Lighthouse](docs/09-lighthouse.md) · [Recorder](docs/10-recorder.md) · [Extensions](docs/11-extensions.md) · [More tools](docs/12-more-tools.md) |
 | Daily use | [Shortcuts](docs/13-shortcuts.md) · [Debugging playbooks](docs/14-playbooks.md) |
-| Practice | [Labs](labs/) · [2-week plan](docs/15-practice-plan.md) |
+| Practice | [Missions](labs/) · [2-week plan](docs/15-practice-plan.md) |
 | Teaching | [How to teach this to others](docs/16-teaching.md) |
 
 ## The mental model

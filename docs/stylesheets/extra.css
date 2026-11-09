@@ -1,0 +1,6 @@
+.dojo-hero { background: linear-gradient(135deg, #0b1f3a, #312e81 60%, #4f46e5); color: #fff; border-radius: 16px; padding: 1.4rem 1.6rem; margin: 0 0 1.5rem; }
+.dojo-hero h2 { color: #fff; margin-top: 0; font-weight: 800; }
+.dojo-hero p, .dojo-hero strong { color: #e0e7ff; }
+.dojo-hero .md-button { color: #fff; border-color: rgba(255,255,255,.6); }
+.dojo-hero .md-button--primary { background: #fff; color: #312e81; border-color: #fff; }
+.md-typeset img[src*="assets/panel-"] { border-radius: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.18); }

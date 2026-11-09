@@ -1,5 +1,14 @@
 # 2. Console
 
+!!! example "Try it now: a 5-minute mission"
+    A secret code is hidden in a page, half in the HTML and half somewhere you rarely look.
+
+    [Start the mission →](https://sachinG549.github.io/devtools-dojo/labs/00-warm-up/){ .md-button .md-button--primary target=_blank }
+
+![Console panel in Chrome DevTools, inspecting TaskBoard](assets/panel-console.png){ loading=lazy }
+
+*Screenshot: the real panel, open on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/){target=_blank}. Open it in another window and follow along.*
+
 ### What it is
 
 Two things in one:
@@ -55,23 +64,24 @@ Right-click a message: **Save as...** (export the log), **Hide messages from <fi
 
 ### Console Utilities API (only works when typed in the Console)
 
-| Command | What it does |
-|---|---|
-| `$0`, `$1`…`$4` | Currently selected element in Elements, and the previous 4 |
-| `$('css')` | Same as `document.querySelector` |
-| `$$('css')` | `querySelectorAll` returned as a real array |
-| `$x('//xpath')` | Query by XPath |
-| `$_` | Result of the last expression |
-| `copy(obj)` | Copy anything to clipboard as text/JSON, e.g. `copy($$('a').map(a=>a.href))` |
-| `inspect(el)` | Jump to element in Elements (or function in Sources) |
-| `getEventListeners(el)` | All listeners on an element |
-| `monitorEvents(el, 'click')` / `unmonitorEvents(el)` | Log events as they fire. Try `monitorEvents(window, 'resize')` |
-| `monitor(fn)` / `unmonitor(fn)` | Log every call to a function with arguments |
-| `debug(fn)` / `undebug(fn)` | Pause in debugger whenever `fn` is called |
-| `queryObjects(Promise)` | All live objects created by a constructor (memory hunting) |
-| `keys(obj)`, `values(obj)` | Shortcuts |
-| `table(data)` | Same as `console.table` |
-| `clear()` | Clear console |
+??? info "Reference table (15 rows), click to expand"
+    | Command | What it does |
+    |---|---|
+    | `$0`, `$1`…`$4` | Currently selected element in Elements, and the previous 4 |
+    | `$('css')` | Same as `document.querySelector` |
+    | `$$('css')` | `querySelectorAll` returned as a real array |
+    | `$x('//xpath')` | Query by XPath |
+    | `$_` | Result of the last expression |
+    | `copy(obj)` | Copy anything to clipboard as text/JSON, e.g. `copy($$('a').map(a=>a.href))` |
+    | `inspect(el)` | Jump to element in Elements (or function in Sources) |
+    | `getEventListeners(el)` | All listeners on an element |
+    | `monitorEvents(el, 'click')` / `unmonitorEvents(el)` | Log events as they fire. Try `monitorEvents(window, 'resize')` |
+    | `monitor(fn)` / `unmonitor(fn)` | Log every call to a function with arguments |
+    | `debug(fn)` / `undebug(fn)` | Pause in debugger whenever `fn` is called |
+    | `queryObjects(Promise)` | All live objects created by a constructor (memory hunting) |
+    | `keys(obj)`, `values(obj)` | Shortcuts |
+    | `table(data)` | Same as `console.table` |
+    | `clear()` | Clear console |
 
 Also: **top-level `await`** works, e.g. `await (await fetch('/rest/api/2/myself')).json()`.
 

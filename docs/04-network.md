@@ -1,5 +1,14 @@
 # 4. Network
 
+!!! example "Try it now: a 5-minute mission"
+    A customer paid $30 but the page shows $0.30. Is the bug in the frontend or the backend?
+
+    [Start the mission →](https://sachinG549.github.io/devtools-dojo/labs/03-wrong-data/){ .md-button .md-button--primary target=_blank }
+
+![Network panel in Chrome DevTools, inspecting TaskBoard](assets/panel-network.png){ loading=lazy }
+
+*Screenshot: the real panel, open on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/){target=_blank}. Open it in another window and follow along.*
+
 ### What it is
 
 A log of every HTTP request the page makes: HTML, JS, CSS, images, fonts, API calls (fetch/XHR), WebSockets, with full headers, bodies and timings.
@@ -38,20 +47,21 @@ Type chips: **All, Fetch/XHR, Doc, CSS, JS, Font, Img, Media, Manifest, Socket (
 
 The text filter supports **properties**. These are worth memorising:
 
-| Filter | Example |
-|---|---|
-| Plain text / regex | `heartbeat`, `/rest\/api\/\d/` |
-| Exclude | `-heartbeat` (hide the polling noise) |
-| `status-code:` | `status-code:400`, `status-code:500` |
-| `method:` | `method:POST` |
-| `domain:` | `domain:*.example.com` |
-| `larger-than:` | `larger-than:500k` |
-| `mime-type:` | `mime-type:application/json` |
-| `is:` | `is:running`, `is:from-cache` |
-| `has-response-header:` | `has-response-header:set-cookie` |
-| `set-cookie-name:` / `cookie-name:` | find who sets or sends a cookie |
-| `scheme:` | `scheme:http` (find insecure calls) |
-| `priority:` | `priority:High` |
+??? info "Reference table (12 rows), click to expand"
+    | Filter | Example |
+    |---|---|
+    | Plain text / regex | `heartbeat`, `/rest\/api\/\d/` |
+    | Exclude | `-heartbeat` (hide the polling noise) |
+    | `status-code:` | `status-code:400`, `status-code:500` |
+    | `method:` | `method:POST` |
+    | `domain:` | `domain:*.example.com` |
+    | `larger-than:` | `larger-than:500k` |
+    | `mime-type:` | `mime-type:application/json` |
+    | `is:` | `is:running`, `is:from-cache` |
+    | `has-response-header:` | `has-response-header:set-cookie` |
+    | `set-cookie-name:` / `cookie-name:` | find who sets or sends a cookie |
+    | `scheme:` | `scheme:http` (find insecure calls) |
+    | `priority:` | `priority:High` |
 
 Combine with spaces (AND).
 

@@ -1,5 +1,14 @@
 # 5. Performance
 
+!!! example "Try it now: a 5-minute mission"
+    Typing in a filter box feels frozen. Find the function that blocks the page.
+
+    [Start the mission →](https://sachinG549.github.io/devtools-dojo/labs/04-slow-click/){ .md-button .md-button--primary target=_blank }
+
+![Performance panel in Chrome DevTools, inspecting TaskBoard](assets/panel-performance.png){ loading=lazy }
+
+*Screenshot: the real panel, open on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/){target=_blank}. Open it in another window and follow along.*
+
 ### What it is
 
 Two modes:
@@ -30,19 +39,20 @@ The **Interactions** and **Layout shifts** lists below show each click and each 
 
 ### Toolbar
 
-| Control | Does |
-|---|---|
-| ⏺ Record (`Cmd + E`) | Start/stop tracing while you interact |
-| ↻ Record and reload (`Cmd + Shift + E`) | Reload and trace the page load |
-| ⊘ Clear | |
-| ⬆ / ⬇ | Load / save a trace file (`.json`). Share with teammates |
-| 🏠 | Back to live metrics |
-| Dropdown | History of recent recordings |
-| **Screenshots** | Filmstrip of the page during the recording |
-| **Memory** | Adds a memory graph (JS heap, DOM nodes, listeners) |
-| 🧹 | Force garbage collection |
-| **Dim 3rd parties** | Grey out code from other origins (extensions, analytics) so you focus on first-party code |
-| ⚙ | Capture settings: disable JS samples (lower overhead), enable advanced paint instrumentation, enable CSS selector stats (slow), CPU/network throttling |
+??? info "Reference table (11 rows), click to expand"
+    | Control | Does |
+    |---|---|
+    | ⏺ Record (`Cmd + E`) | Start/stop tracing while you interact |
+    | ↻ Record and reload (`Cmd + Shift + E`) | Reload and trace the page load |
+    | ⊘ Clear | |
+    | ⬆ / ⬇ | Load / save a trace file (`.json`). Share with teammates |
+    | 🏠 | Back to live metrics |
+    | Dropdown | History of recent recordings |
+    | **Screenshots** | Filmstrip of the page during the recording |
+    | **Memory** | Adds a memory graph (JS heap, DOM nodes, listeners) |
+    | 🧹 | Force garbage collection |
+    | **Dim 3rd parties** | Grey out code from other origins (extensions, analytics) so you focus on first-party code |
+    | ⚙ | Capture settings: disable JS samples (lower overhead), enable advanced paint instrumentation, enable CSS selector stats (slow), CPU/network throttling |
 
 ### Reading a recorded trace
 
@@ -71,6 +81,6 @@ Common things you'll find:
 
 ### Practice
 
-1. Set CPU 4× slowdown, record while opening a TaskBoard task, find the longest task, read Bottom-Up.
+1. Set CPU 4× slowdown, record while opening a [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/) task, find the longest task, read Bottom-Up.
 2. Record and reload a page; find LCP marker; read the "LCP breakdown" insight.
 3. In Console run `performance.mark('a'); for(let i=0;i<1e8;i++); performance.mark('b')` while recording. Find the marks and the long task.

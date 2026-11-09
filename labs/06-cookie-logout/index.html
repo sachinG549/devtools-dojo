@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="../lab.css">
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">← All labs</a></p>
+  <p class="crumbs"><a href="../">← Mission map</a></p>
   <span class="tag">Application</span>
-  <h1>Lab 06 · Logged out after one minute</h1>
+  <h1>Mission 7 · Logged out after one minute</h1>
+  <div class="dojo-mobile">📱 These missions need DevTools, which runs only on a desktop browser. Open this link on your computer (Chrome or Edge).</div>
 
   <div class="mission">
     <b>Mission:</b> After "logging in", users get logged out about a minute later, and also when they open a second page of the site. Find both causes using the Application panel only.
@@ -50,6 +51,11 @@
   };
   show();
   setInterval(show, 2000);
+</script>
+<script type="module">
+  import { startMission } from '../mission.js';
+  startMission({ id: '06', learned: 'Application → Cookies shows exactly when a cookie expires and which paths receive it. Session storage is per tab, so a new tab starts empty.',
+    questions: [{ prompt: 'How many seconds does the session cookie live? (Log in first)', placeholder: 'number', hashes: ["39fa9ec190eee7b6f4dff1100d6343e10918d044c75eac8f9e9a2596173f80c9", "f79f071ab5b033ca8fb42c077f39708930d194b18f4608eb26ac1d9665a8836f", "534156125beeb281970f50240a0ed657c9456a30a862c685cd5e0a4ae00bb8d1", "3b00bd61f381f4d0cdbf0362857f26df531da6b6a7518dac37abb719821848a5", "cba6265ea1ff244a5a57cc9b55ec746cfce30db70d20f0212d16225bcb511555", "f541e2f63f702f170cb1560dbad34ef427dda8c3eaff6dcb0a92ad83016f9b25"] }] });
 </script>
 </body>
 </html>

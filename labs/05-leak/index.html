@@ -7,9 +7,10 @@
   <style>.dialog { margin-top: 12px; padding: 12px; border: 1px solid #e4e7ec; border-radius: 8px; }</style>
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">← All labs</a></p>
+  <p class="crumbs"><a href="../">← Mission map</a></p>
   <span class="tag">Memory</span>
-  <h1>Lab 05 · The dialog that never leaves</h1>
+  <h1>Mission 6 · The dialog that never leaves</h1>
+  <div class="dojo-mobile">📱 These missions need DevTools, which runs only on a desktop browser. Open this link on your computer (Chrome or Edge).</div>
 
   <div class="mission">
     <b>Mission:</b> Users who open and close the details dialog many times say the tab gets slower. Prove there's a leak, find what is leaking, and name the variable that keeps it alive.
@@ -51,6 +52,11 @@
   document.getElementById('open').onclick = openDialog;
   document.getElementById('close').onclick = closeDialog;
   document.getElementById('many').onclick = () => { for (let i = 0; i < 20; i++) { openDialog(); closeDialog(); } };
+</script>
+<script type="module">
+  import { startMission } from '../mission.js';
+  startMission({ id: '05', learned: 'A heap snapshot filtered by "Detached" finds DOM nodes removed from the page but still in memory. The Retainers pane names the variable holding them.',
+    questions: [{ prompt: 'Name of the variable that keeps closed dialogs alive', placeholder: 'variableName', hashes: ["259aa8ef98a8b91de574cd904138ef643240c23080cf24da4793a6f10a43fa9d", "1dd439d60c8016ea2c294898f77d74ea68cf0008f68249aed2023fa28651b756", "9503d9c732959d6d4f42b011ee4c59e659e6d07b954036d347768d261c6a2672"] }] });
 </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # 15. Hands-on practice plan (2 weeks)
 
-Do 20–30 minutes a day on TaskBoard, the labs, and pages you already use.
+Do 20–30 minutes a day on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/), the labs, and pages you already use.
 
 | Day | Focus | Exercise |
 |---|---|---|

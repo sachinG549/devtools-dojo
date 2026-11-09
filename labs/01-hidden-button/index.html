@@ -10,9 +10,10 @@
   </style>
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">← All labs</a></p>
+  <p class="crumbs"><a href="../">← Mission map</a></p>
   <span class="tag">Elements</span>
-  <h1>Lab 01 · The button that won't click</h1>
+  <h1>Mission 2 · The button that won't click</h1>
+  <div class="dojo-mobile">📱 These missions need DevTools, which runs only on a desktop browser. Open this link on your computer (Chrome or Edge).</div>
 
   <div class="mission">
     <b>Mission:</b> The "Save" button below does nothing when clicked. There are no console errors, and the click handler is correct. Find out why, and make the button work without editing this file.
@@ -36,6 +37,11 @@
   document.getElementById('save').addEventListener('click', () => {
     document.getElementById('result').textContent = '✅ Saved! You found it.';
   });
+</script>
+<script type="module">
+  import { startMission } from '../mission.js';
+  const m = startMission({ id: '01', learned: 'When a click does nothing, use the element picker: if it selects a different element than the one you clicked, something is covering it. Check <code>z-index</code> and <code>pointer-events</code>.' });
+  document.getElementById('save').addEventListener('click', () => m.solve());
 </script>
 </body>
 </html>

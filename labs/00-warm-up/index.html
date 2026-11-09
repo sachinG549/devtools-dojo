@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mission 00 · Warm-up</title>
+  <link rel="stylesheet" href="../lab.css">
+</head>
+<body><div class="wrap">
+  <p class="crumbs"><a href="../">← Mission map</a></p>
+  <span class="tag">Elements + Console</span>
+  <h1>Mission 1 · The hidden code</h1>
+  <div class="dojo-mobile">📱 These missions need DevTools, which runs only on a desktop browser. Open this link on your computer (Chrome or Edge).</div>
+
+  <div class="mission">
+    <b>Mission:</b> This page hides a secret code in two halves. The first half is in the page's HTML, but you can't see it on screen. The second half was printed somewhere you don't normally look. Put them together as <code>FIRST-SECOND</code>.
+    <p style="margin:8px 0 0"><b>Open DevTools:</b> <code>Cmd + Option + I</code> on Mac, <code>Ctrl + Shift + I</code> on Windows/Linux. Or right-click anywhere → <b>Inspect</b>.</p>
+  </div>
+
+  <div class="stage">
+    <p>Nothing to see here. 👀</p>
+    <p class="secret" data-code="NINJA" style="display:none">The first half of the code is in my data-code attribute.</p>
+  </div>
+
+  <details><summary>Hint 1</summary>In the <b>Elements</b> tab, expand the tree and look for a hidden <code>&lt;p&gt;</code>. Check its attributes. You can also press <code>Cmd + F</code> inside Elements and search for <code>code</code>.</details>
+  <details><summary>Hint 2</summary>The second half was printed with <code>console.log</code>. Open the <b>Console</b> tab.</details>
+  <details><summary>Solution</summary>The hidden paragraph has <code>data-code="NINJA"</code>, and the Console shows <code>Second half: 7342</code>. The code is <code>NINJA-7342</code>.</details>
+</div>
+<script>
+  console.log('%c🥋 Welcome to DevTools Dojo', 'font-size:18px;font-weight:bold;color:#4f46e5');
+  console.log('Second half: 7342');
+</script>
+<script type="module">
+  import { startMission } from '../mission.js';
+  startMission({
+    id: '00',
+    learned: 'Elements shows HTML that is on the page but invisible, and the Console shows messages the page prints. You use these two tabs every day.',
+    questions: [{ prompt: 'The full code', placeholder: 'FIRST-SECOND', hashes: ["e6c6a084aa41b7d05135721248b3ebe4a9872aa986e5eb553aa1b774efd92467"] }],
+  });
+</script>
+</body>
+</html>

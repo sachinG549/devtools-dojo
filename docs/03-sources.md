@@ -1,5 +1,14 @@
 # 3. Sources
 
+!!! example "Try it now: a 5-minute mission"
+    You click a button and nothing happens. The Console is empty. Something is swallowing an error.
+
+    [Start the mission →](https://sachinG549.github.io/devtools-dojo/labs/02-silent-error/){ .md-button .md-button--primary target=_blank }
+
+![Sources panel in Chrome DevTools, inspecting TaskBoard](assets/panel-sources.png){ loading=lazy }
+
+*Screenshot: the real panel, open on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/){target=_blank}. Open it in another window and follow along.*
+
 ### What it is
 
 A code editor + **debugger** for every file the page loaded: JS, CSS, HTML, images, workers. You pause JavaScript mid-execution and inspect variables.

@@ -7,9 +7,10 @@
   <style>#list { columns: 3; font-size: 13px; color: #667085; max-height: 220px; overflow: auto; }</style>
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">← All labs</a></p>
+  <p class="crumbs"><a href="../">← Mission map</a></p>
   <span class="tag">Performance</span>
-  <h1>Lab 04 · The sluggish filter</h1>
+  <h1>Mission 5 · The sluggish filter</h1>
+  <div class="dojo-mobile">📱 These missions need DevTools, which runs only on a desktop browser. Open this link on your computer (Chrome or Edge).</div>
 
   <div class="mission">
     <b>Mission:</b> Typing in the filter box feels frozen. Measure how bad it is (INP), find the function responsible, and explain what it does wrong.
@@ -47,6 +48,11 @@
   }
   document.getElementById('q').addEventListener('input', render);
   render();
+</script>
+<script type="module">
+  import { startMission } from '../mission.js';
+  startMission({ id: '04', learned: 'Long tasks over 50 ms make typing and clicking feel slow (bad INP). Bottom-Up sorted by Self time shows which function to fix.',
+    questions: [{ prompt: 'Which function takes the most Self time?', placeholder: 'functionName', hashes: ["484e6c63ba2bb16396b85517eff69515a1634e0adf9d0fa5aa5741aeb1168eba"] }] });
 </script>
 </body>
 </html>

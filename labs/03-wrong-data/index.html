@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="../lab.css">
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">← All labs</a></p>
+  <p class="crumbs"><a href="../">← Mission map</a></p>
   <span class="tag">Network</span>
-  <h1>Lab 03 · Frontend or backend?</h1>
+  <h1>Mission 4 · Frontend or backend?</h1>
+  <div class="dojo-mobile">📱 These missions need DevTools, which runs only on a desktop browser. Open this link on your computer (Chrome or Edge).</div>
 
   <div class="mission">
     <b>Mission:</b> A customer says their order total is wrong: it shows <b>$0.30</b> but they paid much more. Decide whether this is a backend bug or a frontend bug, and prove it.
@@ -40,6 +41,13 @@
   }
   document.getElementById('reload').addEventListener('click', load);
   load();
+</script>
+<script type="module">
+  import { startMission } from '../mission.js';
+  startMission({ id: '03', learned: 'Check the Response in Network first. Correct data there with wrong data on screen means the bug is in the frontend.',
+    questions: [
+      { prompt: 'Is the bug in the frontend or the backend?', placeholder: 'frontend / backend', hashes: ["1cf387c012cd2d02f1923e589f86df4a4802427057dbc90f47b87f04d29d54bc", "46e8bf80dc1bb1ebb813333e660908956fca9080f88de7cde94cbacc156fe2ca", "948fe603f61dc036b5c596dc09fe3ce3f3d30dc90f024c85f3c82db2ccab679d", "d3ef7de562f9a4a34a9a0b05a112955fdecdd0102c3faae5eeb03a195091a5e4"] },
+      { prompt: 'Name of the function with the bug', placeholder: 'functionName', hashes: ["7106b7f9bd38fce44772b373275c22e5037a94b1183e31201a31badf164eabbb"] } ] });
 </script>
 </body>
 </html>

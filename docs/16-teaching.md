@@ -12,7 +12,7 @@
    - Lighthouse = *automated report card*.
    - Recorder = *record and replay user steps*.
 2. **Teach the "frontend or backend?" split early** (playbook A). It's the most valuable everyday skill, especially for QA and support people.
-3. **Live demo on a real app** your audience uses, or on TaskBoard. Break something on purpose: hide an element, block an API, delete the session cookie, and let them figure out which tab shows the problem.
+3. **Live demo on a real app** your audience uses, or on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/). Break something on purpose: hide an element, block an API, delete the session cookie, and let them figure out which tab shows the problem.
 4. **One tab per session**, 30–45 minutes, with 2–3 exercises from the [practice plan](15-practice-plan.md).
 5. **Give them a "bug hunt" homework**: a small HTML page with a CSS bug, a JS error, a failing fetch, and a leak. They report which tab found each one.
 6. **Common beginner mistakes to warn about**:

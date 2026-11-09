@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="../lab.css">
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">← All labs</a></p>
+  <p class="crumbs"><a href="../">← Mission map</a></p>
   <span class="tag">Application</span>
-  <h1>Lab 07 · "I deployed, but users still see the old version"</h1>
+  <h1>Mission 8 · "I deployed, but users still see the old version"</h1>
+  <div class="dojo-mobile">📱 These missions need DevTools, which runs only on a desktop browser. Open this link on your computer (Chrome or Edge).</div>
 
   <div class="mission">
     <b>Mission:</b> Version <code>2.0.0</code> was "deployed": the <b>Simulate deploy</b> button below makes the server return 2.0.0. The page keeps showing 1.0.0, even after a hard reload. Find out who is serving the old file, and get the new version to show.
@@ -45,6 +46,11 @@
     document.getElementById('server').textContent = 'Server now returns 2.0.0. Reload the page.';
   };
   navigator.serviceWorker.register('sw.js').then(() => navigator.serviceWorker.ready).then(check);
+</script>
+<script type="module">
+  import { startMission } from '../mission.js';
+  const m = startMission({ id: '07', learned: 'Hard reload and "Disable cache" don\'t bypass a service worker. Application → Service workers (Bypass/Unregister) and Cache storage do.' });
+  const watch = setInterval(() => { if (document.getElementById('ver').textContent === '2.0.0') { m.solve(); clearInterval(watch); } }, 500);
 </script>
 </body>
 </html>

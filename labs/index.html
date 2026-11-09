@@ -1,29 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><link rel="icon" href="data:,"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DevTools Dojo · Labs</title>
+  <meta charset="utf-8"><link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevTools Dojo · 8 broken pages. Fix them with Chrome DevTools.</title>
+  <meta name="description" content="8 short bug-hunt missions that teach Chrome DevTools by doing. Free, in your browser, about 60 minutes.">
+  <meta property="og:title" content="DevTools Dojo · 8 broken pages. Fix them with DevTools.">
+  <meta property="og:description" content="Learn Chrome DevTools by fixing real bugs. Free, nothing to install, about 60 minutes.">
+  <meta property="og:image" content="https://sachinG549.github.io/devtools-dojo/assets/og-card.png">
+  <meta property="og:url" content="https://sachinG549.github.io/devtools-dojo/labs/">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="lab.css">
+  <style>
+    .hero { background: linear-gradient(135deg, #0b1f3a, #312e81 60%, #4f46e5); color: #fff; border-radius: 16px; padding: 28px; margin: 12px 0 20px; }
+    .hero h1 { font-size: 30px; line-height: 1.2; margin: 0 0 8px; }
+    .hero p { color: #dbe4ff; margin: 0 0 16px; }
+    .hero .btn { background: #fff; color: #312e81; }
+    .belt { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin-bottom: 18px; }
+    .belt-swatch { width: 64px; height: 18px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); }
+    .bar { flex: 1; height: 10px; background: #eef0f6; border-radius: 99px; overflow: hidden; }
+    .bar i { display: block; height: 100%; background: #16a34a; }
+    .mlist { display: grid; gap: 10px; }
+    .mlist a { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; text-decoration: none; color: inherit; }
+    .mlist a:hover { border-color: var(--accent); }
+    .num { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #eef2ff; color: #3730a3; font-weight: 700; }
+    .done .num { background: #16a34a; color: #fff; }
+    .meta { color: var(--muted); font-size: 13px; }
+    .share { background: #fff; border: 2px dashed #a5b4fc; border-radius: 14px; padding: 18px; margin: 20px 0; }
+    .share canvas { max-width: 100%; border-radius: 10px; display: block; margin: 12px 0; }
+  </style>
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">← Back to the guide</a></p>
-  <h1>DevTools Dojo labs</h1>
-  <p>Each lab is a small page with one deliberate bug. Open DevTools (<code>Cmd + Option + I</code>), read the mission, and find the bug. Try the hints before you open the solution.</p>
+  <p class="crumbs"><a href="../">📖 Reference guide</a> · <a href="taskboard/">🧪 TaskBoard playground</a> · <a href="https://github.com/sachinG549/devtools-dojo">⭐ GitHub</a></p>
 
-  <h2>Playground</h2>
-  <div class="grid">
-    <a href="taskboard/"><b>TaskBoard</b><span>The practice app used throughout the guide: API calls, polling, storage, cookies, performance marks, and a 400 error.</span></a>
+  <div class="hero">
+    <h1>8 broken pages.<br>Fix them with Chrome DevTools.</h1>
+    <p>Each mission has one real-world bug. Find it with DevTools, type your answer, earn your belt. Free, nothing to install, about 60 minutes in total.</p>
+    <a class="btn" id="cta" href="00-warm-up/">Start mission 1 →</a>
   </div>
 
-  <h2>Bug hunts</h2>
-  <div class="grid">
-    <a href="01-hidden-button/"><b>01 · The button that won't click</b><span>Elements · invisible overlay</span></a>
-    <a href="02-silent-error/"><b>02 · Nothing happens, no error</b><span>Sources · swallowed exception</span></a>
-    <a href="03-wrong-data/"><b>03 · Frontend or backend?</b><span>Network · right response, wrong UI</span></a>
-    <a href="04-slow-click/"><b>04 · The sluggish filter</b><span>Performance · long task, bad INP</span></a>
-    <a href="05-leak/"><b>05 · The dialog that never leaves</b><span>Memory · detached DOM leak</span></a>
-    <a href="06-cookie-logout/"><b>06 · Logged out after one minute</b><span>Application · cookie expiry and path</span></a>
-    <a href="07-cache-trap/"><b>07 · "I deployed, but…"</b><span>Application · service worker cache</span></a>
+  <div class="dojo-mobile">📱 The missions need DevTools, which runs only on a desktop browser. Send this link to your computer. Meanwhile, the <a href="../">reference guide</a> works fine on a phone.</div>
+
+  <div class="belt">
+    <div class="belt-swatch" id="swatch"></div>
+    <div><b id="beltName">White belt</b><div class="meta" id="count">0 of 8 solved</div></div>
+    <div class="bar"><i id="bar" style="width:0"></i></div>
   </div>
-</div></body>
+
+  <div class="mlist" id="list"></div>
+
+  <div class="share" id="share" hidden>
+    <b>🥋 Share your progress</b>
+    <p class="meta">Download your card and post it, or share the link. Your progress is saved only in this browser.</p>
+    <canvas id="card" width="1200" height="630"></canvas>
+    <div class="dojo-row">
+      <button class="primary" id="dl">Download card (PNG)</button>
+      <a class="btn ghost" id="li" target="_blank" rel="noopener">Share on LinkedIn</a>
+      <button class="btn ghost" id="copy" type="button">Copy post text</button>
+      <span class="dojo-msg" id="copied"></span>
+    </div>
+  </div>
+
+  <p class="meta">Stuck? Each mission has hints that unlock one at a time. Want the theory? Every tab is explained in the <a href="../">reference guide</a>. <a href="#" id="reset">Reset progress</a></p>
+</div>
+
+<script type="module">
+  import { MISSIONS, getProgress, solvedCount, beltFor } from './mission.js';
+  const p = getProgress(), n = solvedCount(p), belt = beltFor(n), total = MISSIONS.length;
+  const $ = (id) => document.getElementById(id);
+
+  $('swatch').style.background = belt.color;
+  $('beltName').textContent = belt.name;
+  $('count').textContent = `${n} of ${total} solved`;
+  $('bar').style.width = (n / total * 100) + '%';
+
+  const next = MISSIONS.find((m) => !p[m.id]?.solved);
+  if (n > 0 && next) $('cta').textContent = `Continue: mission ${MISSIONS.indexOf(next) + 1} →`, $('cta').href = next.slug + '/';
+  if (!next) $('cta').textContent = '🥋 All solved. Share your belt ↓', $('cta').href = '#share';
+
+  $('list').innerHTML = MISSIONS.map((m, i) => `
+    <a href="${m.slug}/" class="${p[m.id]?.solved ? 'done' : ''}">
+      <span class="num">${p[m.id]?.solved ? '✓' : i + 1}</span>
+      <span><b>${m.title}</b><div class="meta">${m.tab} · ~${m.mins} min${p[m.id]?.solved && !p[m.id].hints ? ' · ⭐ no hints' : ''}</div></span>
+      <span class="meta">${p[m.id]?.solved ? 'Solved' : 'Start →'}</span>
+    </a>`).join('');
+
+  const SITE = 'https://sachinG549.github.io/devtools-dojo/labs/';
+  const text = n === total
+    ? `I just earned my DevTools Dojo black belt 🥋: ${total} broken web pages fixed with Chrome DevTools (Elements, Console, Sources, Network, Performance, Memory, Application). Free and hands-on: ${SITE}`
+    : `I've solved ${n} of ${total} DevTools Dojo missions (${belt.name}) 🥋. Learning Chrome DevTools by fixing real bugs. Free: ${SITE}`;
+
+  if (n > 0) {
+    $('share').hidden = false;
+    const c = $('card'), g = c.getContext('2d');
+    const grd = g.createLinearGradient(0, 0, 1200, 630); grd.addColorStop(0, '#0b1f3a'); grd.addColorStop(.6, '#312e81'); grd.addColorStop(1, '#4f46e5');
+    g.fillStyle = grd; g.fillRect(0, 0, 1200, 630);
+    g.fillStyle = '#a5b4fc'; g.font = '600 30px -apple-system, Segoe UI, sans-serif'; g.fillText('DEVTOOLS DOJO', 70, 100);
+    g.fillStyle = '#fff'; g.font = '800 76px -apple-system, Segoe UI, sans-serif';
+    g.fillText(n === total ? 'Black belt earned' : belt.name, 70, 210);
+    g.font = '400 38px -apple-system, Segoe UI, sans-serif'; g.fillStyle = '#dbe4ff';
+    g.fillText(`${n} of ${total} Chrome DevTools missions solved`, 70, 280);
+    g.fillStyle = belt.color; g.fillRect(70, 320, 300, 34); g.strokeStyle = 'rgba(255,255,255,.4)'; g.strokeRect(70, 320, 300, 34);
+    MISSIONS.forEach((m, i) => {
+      const x = 70 + i * 132, y = 420;
+      g.fillStyle = p[m.id]?.solved ? '#22c55e' : 'rgba(255,255,255,.15)';
+      g.beginPath(); g.arc(x + 40, y + 40, 40, 0, Math.PI * 2); g.fill();
+      g.fillStyle = '#fff'; g.font = '700 30px -apple-system, sans-serif'; g.textAlign = 'center';
+      g.fillText(p[m.id]?.solved ? '✓' : String(i + 1), x + 40, y + 51); g.textAlign = 'left';
+    });
+    g.fillStyle = '#c7d2fe'; g.font = '400 26px -apple-system, sans-serif'; g.fillText('sachinG549.github.io/devtools-dojo', 70, 590);
+
+    $('dl').onclick = () => { const a = document.createElement('a'); a.download = 'devtools-dojo-belt.png'; a.href = c.toDataURL('image/png'); a.click(); };
+    $('li').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(SITE);
+    $('copy').onclick = async () => { await navigator.clipboard.writeText(text); $('copied').textContent = 'Copied. Paste it into your post with the card.'; };
+  }
+  $('reset').onclick = (e) => { e.preventDefault(); if (confirm('Reset all mission progress?')) { localStorage.removeItem('dojo:progress'); location.reload(); } };
+</script>
+</body>
 </html>

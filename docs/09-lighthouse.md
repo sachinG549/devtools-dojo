@@ -1,5 +1,9 @@
 # 9. Lighthouse
 
+![Lighthouse panel in Chrome DevTools, inspecting TaskBoard](assets/panel-lighthouse.png){ loading=lazy }
+
+*Screenshot: the real panel, open on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/){target=_blank}. Open it in another window and follow along.*
+
 ### What it is
 
 An automated **audit** that scores a page 0–100 on Performance, Accessibility, Best Practices and SEO, and tells you exactly what to fix.

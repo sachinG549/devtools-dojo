@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block extrahead %}
+  {% set title = (page.title ~ " · " ~ config.site_name) if page and page.title and not page.is_homepage else "DevTools Dojo · 8 broken pages. Fix them with Chrome DevTools." %}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="Learn Chrome DevTools by fixing real bugs. 8 short missions, free, nothing to install, about 60 minutes.">
+  <meta property="og:image" content="{{ config.site_url }}assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="{{ page.canonical_url if page else config.site_url }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ config.site_url }}assets/og-card.png">
+{% endblock %}

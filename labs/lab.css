@@ -18,3 +18,29 @@ button.primary { font: inherit; padding: 10px 18px; border: 0; border-radius: 8p
 .grid a:hover { border-color: var(--accent); }
 .grid b { display: block; margin-bottom: 4px; }
 .grid span { color: var(--muted); font-size: 14px; }
+
+/* ---------- Mission engine ---------- */
+.dojo-strip { font-size: 14px; color: var(--muted); margin: 4px 0 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.dojo-dots { display: inline-flex; gap: 5px; margin-left: 6px; }
+.dojo-dots a { width: 12px; height: 12px; border-radius: 50%; background: #d0d5dd; display: inline-block; }
+.dojo-dots a.done { background: #16a34a; }
+.dojo-dots a.here { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dojo-check { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.dojo-check.ok { border-color: #16a34a; background: #f0fdf4; }
+.dojo-check label { display: block; margin-top: 10px; font-size: 15px; }
+.dojo-check input { display: block; width: 100%; max-width: 420px; margin-top: 4px; padding: 8px 12px; font: 14px "SF Mono", Menlo, monospace; border: 1px solid #d0d5dd; border-radius: 8px; }
+.dojo-check input.bad { border-color: #dc2626; background: #fef2f2; }
+.dojo-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+.dojo-msg { color: var(--muted); font-size: 14px; }
+.dojo-check.ok .dojo-msg { color: #15803d; font-weight: 600; }
+.dojo-solved { background: linear-gradient(135deg, #ecfdf5, #eef2ff); border: 2px solid #16a34a; border-radius: 14px; padding: 18px 22px; margin: 16px 0; }
+.dojo-solved h2 { margin: 0 0 4px; color: #15803d; }
+.btn { display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+a.primary.btn { background: var(--accent); color: #fff; }
+.btn.ghost { border: 1px solid var(--line); color: var(--ink); background: #fff; }
+details.locked summary { color: #98a2b3; cursor: not-allowed; }
+details.locked summary::after { content: " 🔒 " attr(data-lock); font-weight: 400; font-size: 13px; }
+details.locked > :not(summary) { display: none; }
+
+.dojo-mobile { display: none; background: #fff7ed; border: 1px solid #fdba74; color: #7c2d12; border-radius: 12px; padding: 12px 16px; margin: 12px 0; font-size: 15px; }
+@media (max-width: 820px), (pointer: coarse) { .dojo-mobile { display: block; } }

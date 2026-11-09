@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="../lab.css">
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">← All labs</a></p>
+  <p class="crumbs"><a href="../">← Mission map</a></p>
   <span class="tag">Sources</span>
-  <h1>Lab 02 · Nothing happens, no error</h1>
+  <h1>Mission 3 · Nothing happens, no error</h1>
+  <div class="dojo-mobile">📱 These missions need DevTools, which runs only on a desktop browser. Open this link on your computer (Chrome or Edge).</div>
 
   <div class="mission">
     <b>Mission:</b> Clicking "Calculate total" should show the cart total. Nothing happens and the Console is empty. Find the exact line that fails and the value that causes it.
@@ -49,6 +50,13 @@
       // TODO: handle errors properly
     }
   });
+</script>
+<script type="module">
+  import { startMission } from '../mission.js';
+  startMission({ id: '02', learned: '"Pause on caught exceptions" stops on errors that code swallows. The Scope pane shows the exact value that broke it.',
+    questions: [
+      { prompt: 'Which expression throws? (as written in the code)', placeholder: 'something.something', hashes: ["0d1baefb75739adc05d82682b4478e8db7c1be19e476637a574b9825f83db299", "7431445befafe694f98b49c07b720fbc0269680c2743a9e8e6b6e93285ae81d1"] },
+      { prompt: 'Name of the cart item that causes it', placeholder: 'item name', hashes: ["598aa5e2d9557cce8e7ceff45cae23c3e5a4490c9f5738b240665c701d089e5c"] } ] });
 </script>
 </body>
 </html>

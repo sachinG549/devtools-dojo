@@ -1,5 +1,14 @@
 # 7. Application
 
+!!! example "Try it now: a 5-minute mission"
+    Users get logged out after one minute. The answer is in what the site stores.
+
+    [Start the mission →](https://sachinG549.github.io/devtools-dojo/labs/06-cookie-logout/){ .md-button .md-button--primary target=_blank }
+
+![Application panel in Chrome DevTools, inspecting TaskBoard](assets/panel-application.png){ loading=lazy }
+
+*Screenshot: the real panel, open on [TaskBoard](https://sachinG549.github.io/devtools-dojo/labs/taskboard/){target=_blank}. Open it in another window and follow along.*
+
 ### What it is
 
 Everything the site **stores** in your browser, plus "app-like" features (PWA manifest, service workers, background services) and per-frame security info.

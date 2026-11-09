@@ -37,9 +37,16 @@ def mkdocs_to_plain(text: str) -> str:
     def adm(m):
         title = m.group(2) or m.group(1).capitalize()
         body = "\n".join(line[4:] if line.startswith("    ") else line for line in m.group(3).splitlines())
-        return "> **" + title + ":** " + body.strip().replace("\n", "\n> ") + "\n"
+        return "> **" + title + ":** " + body.strip().replace("\n", "\n> ") + "\n\n"
 
+    # Collapsible reference blocks: print them fully expanded (unindent, drop the header line)
+    text = re.sub(r'(?m)^\?\?\?\+? \w+(?: "[^"]*")?\n((?:    .*\n?)+)',
+                  lambda m: "\n".join(l[4:] for l in m.group(1).splitlines()) + "\n", text)
     text = re.sub(r'(?m)^!!! (\w+)(?: "([^"]*)")?\n((?:    .*\n?|\n)+)', adm, text)
+    # Attribute lists on images/links: ![x](y){ loading=lazy } -> ![x](y)
+    text = re.sub(r"(\]\([^)]*\))\{[^}]*\}", r"\1", text)
+    # Images live in docs/assets; point to them from the build folder
+    text = text.replace("](assets/", "](" + str(DOCS / "assets") + "/")
     return text
 
 
