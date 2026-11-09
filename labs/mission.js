@@ -13,6 +13,21 @@ export const MISSIONS = [
   { id: '07', slug: '07-cache-trap', title: '"I deployed, but…"', tab: 'Application', mins: 8 },
 ];
 
+// Accent colour and icon per DevTools tab (used by the mission pages and the map)
+export const TABS = {
+  'Elements + Console': { color: '#60a5fa', icon: '🔍' },
+  Elements: { color: '#60a5fa', icon: '🧱' },
+  Console: { color: '#a78bfa', icon: '⌨️' },
+  Sources: { color: '#fb923c', icon: '🐛' },
+  Network: { color: '#34d399', icon: '🌐' },
+  Performance: { color: '#f87171', icon: '⚡' },
+  Memory: { color: '#e879f9', icon: '🧠' },
+  Application: { color: '#22d3ee', icon: '🗄️' },
+};
+export const tabOf = (m) => TABS[m.tab] || { color: '#818cf8', icon: '🛠️' };
+const CHAPTER = { 'Elements + Console': '01-elements', Elements: '01-elements', Console: '02-console', Sources: '03-sources',
+  Network: '04-network', Performance: '05-performance', Memory: '06-memory', Application: '07-application' };
+
 export const BELTS = [
   { min: 0, name: 'White belt', color: '#e5e7eb', ink: '#374151' },
   { min: 1, name: 'Yellow belt', color: '#facc15', ink: '#422006' },
@@ -55,6 +70,24 @@ export function startMission(cfg) {
   const state = progress[cfg.id] || { solved: false, hints: 0 };
 
   document.title = `Mission ${idx + 1} · ${mission.title} · DevTools Dojo`;
+  const tab = tabOf(mission);
+  document.body.classList.add('dojo-mission');
+  document.documentElement.style.setProperty('--tab', tab.color);
+  document.querySelector('.tag')?.setAttribute('data-icon', tab.icon);
+  const stageEl = document.querySelector('.stage');
+  stageEl?.setAttribute('data-url', `shop.example.com/${mission.slug.slice(3)}`);
+  // Right column on wide screens: the broken page plus a small toolkit card
+  if (stageEl) {
+    const side = el('aside', { className: 'dojo-side' });
+    stageEl.before(side);
+    side.appendChild(stageEl);
+    const mac = /Mac|iPhone|iPad/.test(navigator.platform);
+    side.appendChild(el('div', { className: 'card dojo-kit' }, `
+      <h3>${tab.icon} Your toolkit</h3>
+      <p>Open DevTools: ${mac ? '<kbd>⌘</kbd><kbd>⌥</kbd><kbd>I</kbd>' : '<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>I</kbd>'} · Command Menu: ${mac ? '<kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd>' : '<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>P</kbd>'}</p>
+      <p>Tab for this mission: <b style="color:var(--tab)">${mission.tab}</b></p>
+      <p>📖 <a href="../../${CHAPTER[mission.tab] || ''}/" target="_blank" rel="noopener">Read the ${mission.tab.split(' ')[0]} chapter</a> (opens in a new tab)</p>`));
+  }
 
   // Progress strip under the breadcrumb
   const strip = el('div', { className: 'dojo-strip' });
@@ -68,7 +101,7 @@ export function startMission(cfg) {
       <label>${q.prompt}<input name="q${i}" placeholder="${q.placeholder || ''}" spellcheck="false"></label>`).join('') +
     `<div class="dojo-row"><button class="primary" type="submit">Check answer</button><span class="dojo-msg" role="status"></span></div>`;
   if (!cfg.questions?.length) box.innerHTML = `<b>Your answer</b><p>This mission checks itself. Fix the bug with DevTools and it will turn green.</p><span class="dojo-msg" role="status"></span>`;
-  const mount = document.querySelector('.stage') || document.querySelector('.mission');
+  const mount = document.querySelector('.mission');
   mount.after(box);
 
   const banner = el('div', { className: 'dojo-solved', hidden: true });
@@ -83,7 +116,7 @@ export function startMission(cfg) {
     banner.hidden = false;
     box.classList.add('ok');
     box.querySelector('.dojo-msg').textContent = 'Correct!';
-    if (firstTime) banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (firstTime) { banner.scrollIntoView({ behavior: 'smooth', block: 'center' }); confetti(); }
     strip.querySelector('.here')?.classList.add('done');
   }
 
@@ -136,4 +169,27 @@ export function startMission(cfg) {
 
   if (state.solved) showSolved(false);
   return { solve, get solved() { return state.solved; } };
+}
+
+// Small dependency-free confetti burst. Skipped when the user prefers reduced motion.
+export function confetti() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = Object.assign(document.createElement('canvas'), { width: innerWidth, height: innerHeight });
+  Object.assign(c.style, { position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 9999 });
+  document.body.appendChild(c);
+  const g = c.getContext('2d');
+  const colors = ['#818cf8', '#22d3ee', '#34d399', '#facc15', '#f472b6', '#fb923c'];
+  const bits = Array.from({ length: 140 }, () => ({
+    x: innerWidth / 2, y: innerHeight / 2.4, vx: (Math.random() - .5) * 16, vy: Math.random() * -14 - 4,
+    s: Math.random() * 7 + 4, r: Math.random() * 6, vr: (Math.random() - .5) * .4, c: colors[Math.floor(Math.random() * colors.length)],
+  }));
+  let t = 0;
+  (function frame() {
+    g.clearRect(0, 0, c.width, c.height);
+    for (const b of bits) {
+      b.vy += .45; b.vx *= .99; b.x += b.vx; b.y += b.vy; b.r += b.vr;
+      g.save(); g.translate(b.x, b.y); g.rotate(b.r); g.fillStyle = b.c; g.fillRect(-b.s / 2, -b.s / 4, b.s, b.s / 2); g.restore();
+    }
+    if (++t < 140) requestAnimationFrame(frame); else c.remove();
+  })();
 }

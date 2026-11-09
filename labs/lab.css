@@ -1,46 +1,224 @@
-:root { --accent: #4f46e5; --ink: #1f2633; --muted: #667085; --line: #e4e7ec; }
-* { box-sizing: border-box; }
-body { margin: 0; font: 16px/1.6 -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: #f6f7fb; }
-.wrap { max-width: 860px; margin: 0 auto; padding: 32px 24px 64px; }
-.crumbs a { color: var(--accent); text-decoration: none; }
-h1 { margin: 8px 0 4px; }
-.tag { display: inline-block; padding: 2px 10px; border-radius: 999px; background: #e0e7ff; color: #3730a3; font-size: 13px; font-weight: 600; }
-.mission, .stage, details { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
-.mission { border-left: 5px solid var(--accent); }
-.stage { min-height: 160px; position: relative; }
-summary { cursor: pointer; font-weight: 600; }
-details[open] summary { margin-bottom: 8px; }
-code { background: #eef1f6; padding: 1px 5px; border-radius: 4px; font-size: .9em; }
-button.primary { font: inherit; padding: 10px 18px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; cursor: pointer; }
-.result { margin-top: 12px; color: var(--muted); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-.grid a { display: block; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px; color: inherit; text-decoration: none; }
-.grid a:hover { border-color: var(--accent); }
-.grid b { display: block; margin-bottom: 4px; }
-.grid span { color: var(--muted); font-size: 14px; }
+/* DevTools Dojo · visual system
+   Dark "dojo at night" shell, per-tab accent colours, the bug page shown inside a browser frame. */
 
-/* ---------- Mission engine ---------- */
-.dojo-strip { font-size: 14px; color: var(--muted); margin: 4px 0 8px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.dojo-dots { display: inline-flex; gap: 5px; margin-left: 6px; }
-.dojo-dots a { width: 12px; height: 12px; border-radius: 50%; background: #d0d5dd; display: inline-block; }
-.dojo-dots a.done { background: #16a34a; }
-.dojo-dots a.here { outline: 2px solid var(--accent); outline-offset: 2px; }
-.dojo-check { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
-.dojo-check.ok { border-color: #16a34a; background: #f0fdf4; }
-.dojo-check label { display: block; margin-top: 10px; font-size: 15px; }
-.dojo-check input { display: block; width: 100%; max-width: 420px; margin-top: 4px; padding: 8px 12px; font: 14px "SF Mono", Menlo, monospace; border: 1px solid #d0d5dd; border-radius: 8px; }
-.dojo-check input.bad { border-color: #dc2626; background: #fef2f2; }
-.dojo-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+:root {
+  --bg: #070b18;
+  --panel: #0f1629;
+  --panel-2: #141d36;
+  --line: rgba(148, 163, 255, .14);
+  --line-strong: rgba(148, 163, 255, .28);
+  --ink: #e6e9f5;
+  --muted: #9aa3c0;
+  --accent: #818cf8;
+  --accent-2: #22d3ee;
+  --ok: #34d399;
+  --bad: #f87171;
+  --tab: var(--accent);
+  --radius: 16px;
+  --shadow: 0 20px 50px -20px rgba(0, 0, 0, .7);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--bg); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 16px/1.65 Inter, ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(900px 500px at 10% -10%, rgba(99, 102, 241, .28), transparent 60%),
+    radial-gradient(700px 450px at 110% 10%, rgba(34, 211, 238, .16), transparent 60%),
+    radial-gradient(800px 600px at 50% 120%, color-mix(in srgb, var(--tab) 18%, transparent), transparent 60%),
+    linear-gradient(rgba(148, 163, 255, .045) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(148, 163, 255, .045) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); }
+::selection { background: color-mix(in srgb, var(--tab) 45%, transparent); }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 28px 24px 80px; }
+
+/* ---------- Top bar ---------- */
+.crumbs {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin: 0 0 18px; font-size: 14px;
+}
+.crumbs a {
+  color: var(--ink); text-decoration: none; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--line); background: rgba(15, 22, 41, .6); backdrop-filter: blur(8px);
+  transition: border-color .15s, background .15s;
+}
+.crumbs a:hover { border-color: var(--line-strong); background: var(--panel-2); }
+
+/* ---------- Headings and tags ---------- */
+h1 {
+  margin: 10px 0 14px; font-size: clamp(28px, 4vw, 40px); line-height: 1.12; letter-spacing: -.02em; font-weight: 800;
+  background: linear-gradient(90deg, #fff, color-mix(in srgb, var(--tab) 70%, #fff));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+h2 { letter-spacing: -.01em; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; letter-spacing: .02em;
+  color: var(--tab); background: color-mix(in srgb, var(--tab) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tab) 40%, transparent);
+}
+.tag { justify-self: start; width: max-content; }
+.tag::before { content: attr(data-icon); }
+
+code {
+  font: 600 .86em "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  background: rgba(148, 163, 255, .12); color: #c7d2fe; padding: 2px 6px; border-radius: 6px;
+  border: 1px solid var(--line);
+}
+
+/* ---------- Cards ---------- */
+.mission, .dojo-check, details, .card {
+  background: linear-gradient(180deg, rgba(20, 29, 54, .85), rgba(15, 22, 41, .85));
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; margin: 14px 0;
+  box-shadow: var(--shadow); backdrop-filter: blur(6px);
+}
+.mission { position: relative; overflow: hidden; border-color: color-mix(in srgb, var(--tab) 35%, var(--line)); }
+.mission::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 4px;
+  background: linear-gradient(var(--tab), color-mix(in srgb, var(--tab) 30%, transparent));
+}
+.mission b:first-child {
+  display: block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--tab); margin-bottom: 4px;
+}
+
+/* ---------- The page under test: a light "website" in a browser frame ---------- */
+.stage {
+  position: relative; min-height: 220px; margin: 14px 0; padding: 58px 24px 24px;
+  background: #fff; color: #1f2633; border-radius: 14px; overflow: hidden; color-scheme: light;
+  border: 1px solid rgba(255, 255, 255, .15);
+  box-shadow: 0 30px 70px -25px rgba(0, 0, 0, .85), 0 0 0 6px rgba(148, 163, 255, .06);
+}
+.stage::before {
+  content: attr(data-url); position: absolute; left: 0; right: 0; top: 0; height: 40px;
+  display: flex; align-items: center; padding: 0 14px 0 82px;
+  font: 12px ui-monospace, Menlo, monospace; color: #667085;
+  background:
+    radial-gradient(circle at 18px 20px, #ff5f57 5px, transparent 6px),
+    radial-gradient(circle at 36px 20px, #febc2e 5px, transparent 6px),
+    radial-gradient(circle at 54px 20px, #28c840 5px, transparent 6px),
+    #eef0f5;
+  border-bottom: 1px solid #e2e5ec;
+}
+.stage::after {
+  content: "🐞 broken page"; position: absolute; top: 9px; right: 12px; font: 600 11px -apple-system, sans-serif;
+  color: #b42318; background: #fee4e2; padding: 3px 8px; border-radius: 999px;
+}
+.stage code { background: #eef1f6; color: #b4235a; border-color: #e4e7ec; }
+.stage a { color: #4f46e5; }
+.result { margin-top: 12px; color: #667085; }
+.stage input:not([type=checkbox]) { background: #fff; color: #1f2633; border: 1px solid #d0d5dd; border-radius: 8px; }
+
+button.primary, a.primary.btn {
+  font: 700 15px/1.1 inherit; font-family: inherit; font-size: 15px; padding: 12px 18px; border: 0; border-radius: 10px; cursor: pointer;
+  color: #fff; background: linear-gradient(135deg, #6366f1, #4f46e5); text-decoration: none; display: inline-block;
+  box-shadow: 0 8px 20px -8px rgba(79, 70, 229, .8); transition: transform .12s, box-shadow .12s, filter .12s;
+}
+button.primary:hover, a.primary.btn:hover { transform: translateY(-1px); filter: brightness(1.08); box-shadow: 0 12px 24px -10px rgba(79, 70, 229, .9); }
+button.primary:active { transform: translateY(0); }
+button.primary:focus-visible, a.btn:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 2px; }
+.stage button.primary + button.primary { margin-left: 6px; }
+
+.btn { display: inline-block; padding: 11px 16px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px; }
+.btn.ghost { border: 1px solid var(--line-strong); color: var(--ink); background: rgba(255, 255, 255, .03); }
+.btn.ghost:hover { background: rgba(255, 255, 255, .07); }
+
+/* ---------- Mission engine pieces ---------- */
+.dojo-strip { font-size: 14px; color: var(--muted); margin: 0 0 6px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.dojo-strip b { color: var(--ink); }
+.dojo-dots { display: inline-flex; gap: 6px; margin-left: 4px; }
+.dojo-dots a {
+  width: 26px; height: 8px; border-radius: 99px; background: rgba(148, 163, 255, .18); display: inline-block; transition: transform .15s;
+}
+.dojo-dots a:hover { transform: scaleY(1.5); }
+.dojo-dots a.done { background: linear-gradient(90deg, #10b981, var(--ok)); box-shadow: 0 0 10px rgba(52, 211, 153, .5); }
+.dojo-dots a.here { background: var(--tab); box-shadow: 0 0 12px var(--tab); }
+
+.dojo-check > b { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.dojo-check label { display: block; margin-top: 12px; font-weight: 600; }
+.dojo-check input {
+  display: block; width: 100%; margin-top: 6px; padding: 12px 14px;
+  font: 15px "SF Mono", ui-monospace, Menlo, monospace; color: var(--ink);
+  background: #0a1022; border: 1px solid var(--line-strong); border-radius: 10px; transition: border-color .15s, box-shadow .15s;
+}
+.dojo-check input:focus { border-color: var(--tab); box-shadow: 0 0 0 4px color-mix(in srgb, var(--tab) 22%, transparent); outline: none; }
+.dojo-check input.bad { border-color: var(--bad); animation: dojo-shake .35s; }
+.dojo-check.ok { border-color: rgba(52, 211, 153, .6); box-shadow: 0 0 0 1px rgba(52, 211, 153, .3), 0 0 40px -10px rgba(52, 211, 153, .45); }
+.dojo-check.ok input { border-color: rgba(52, 211, 153, .6); }
+.dojo-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
 .dojo-msg { color: var(--muted); font-size: 14px; }
-.dojo-check.ok .dojo-msg { color: #15803d; font-weight: 600; }
-.dojo-solved { background: linear-gradient(135deg, #ecfdf5, #eef2ff); border: 2px solid #16a34a; border-radius: 14px; padding: 18px 22px; margin: 16px 0; }
-.dojo-solved h2 { margin: 0 0 4px; color: #15803d; }
-.btn { display: inline-block; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 600; }
-a.primary.btn { background: var(--accent); color: #fff; }
-.btn.ghost { border: 1px solid var(--line); color: var(--ink); background: #fff; }
-details.locked summary { color: #98a2b3; cursor: not-allowed; }
-details.locked summary::after { content: " 🔒 " attr(data-lock); font-weight: 400; font-size: 13px; }
+.dojo-check.ok .dojo-msg { color: var(--ok); font-weight: 700; }
+
+.dojo-solved {
+  position: relative; overflow: hidden; margin: 14px 0; padding: 22px 24px; border-radius: var(--radius);
+  background: radial-gradient(600px 200px at 0 0, rgba(52, 211, 153, .25), transparent 70%), linear-gradient(135deg, #0d2a24, #12203f);
+  border: 1px solid rgba(52, 211, 153, .5); box-shadow: 0 25px 60px -25px rgba(16, 185, 129, .6);
+  animation: dojo-pop .45s cubic-bezier(.2, 1.4, .4, 1);
+}
+.dojo-solved h2 { margin: 0 0 4px; color: #6ee7b7; font-size: 24px; }
+.dojo-solved p { margin: 6px 0; }
+
+details { padding: 0; }
+summary {
+  list-style: none; cursor: pointer; padding: 14px 20px; font-weight: 700; display: flex; align-items: center; gap: 10px;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "💡"; }
+details:last-of-type summary::before { content: "🗝️"; }
+summary::after { content: "＋"; margin-left: auto; color: var(--muted); font-weight: 400; }
+details[open] summary::after { content: "－"; }
+details[open] summary { border-bottom: 1px solid var(--line); }
+details > :not(summary) { padding: 0 20px; }
+details[open] { padding-bottom: 14px; }
+details[open] > :not(summary):first-of-type, details[open] > summary + * { margin-top: 12px; }
+details.locked { opacity: .55; box-shadow: none; }
+details.locked summary { cursor: not-allowed; color: var(--muted); }
+details.locked summary::after { content: "🔒 " attr(data-lock); font-size: 13px; }
 details.locked > :not(summary) { display: none; }
 
-.dojo-mobile { display: none; background: #fff7ed; border: 1px solid #fdba74; color: #7c2d12; border-radius: 12px; padding: 12px 16px; margin: 12px 0; font-size: 15px; }
+.dojo-mobile {
+  display: none; margin: 12px 0; padding: 14px 18px; border-radius: 14px; font-size: 15px;
+  color: #fde68a; background: rgba(245, 158, 11, .1); border: 1px solid rgba(245, 158, 11, .4);
+}
 @media (max-width: 820px), (pointer: coarse) { .dojo-mobile { display: block; } }
+
+/* ---------- Mission page layout: brief left, broken page right ---------- */
+@media (min-width: 980px) {
+  body.dojo-mission .wrap {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); column-gap: 32px; align-items: start;
+  }
+  body.dojo-mission .wrap > * { grid-column: 1; }
+  body.dojo-mission .wrap > .crumbs, body.dojo-mission .wrap > .dojo-strip { grid-column: 1 / -1; }
+  body.dojo-mission .wrap > .dojo-side { grid-column: 2; grid-row: 3 / span 40; position: sticky; top: 24px; }
+}
+
+/* ---------- Side column: broken page + toolkit ---------- */
+.dojo-side .stage { margin-top: 10px; }
+.dojo-kit { font-size: 14px; color: var(--muted); }
+.dojo-kit h3 { margin: 0 0 8px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--tab); }
+.dojo-kit p { margin: 6px 0; }
+kbd {
+  display: inline-block; min-width: 26px; padding: 3px 8px; margin: 0 1px; text-align: center;
+  font: 600 13px ui-sans-serif, -apple-system, sans-serif; color: var(--ink);
+  background: linear-gradient(#1d2747, #141c35); border: 1px solid var(--line-strong); border-bottom-width: 3px; border-radius: 7px;
+}
+.dojo-kit a { color: var(--ink); font-weight: 600; }
+
+/* ---------- Motion ---------- */
+@keyframes dojo-pop { from { transform: scale(.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes dojo-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+@keyframes dojo-rise { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+.wrap > * { animation: dojo-rise .5s both; }
+.wrap > *:nth-child(2) { animation-delay: .04s; } .wrap > *:nth-child(3) { animation-delay: .08s; }
+.wrap > *:nth-child(4) { animation-delay: .12s; } .wrap > *:nth-child(5) { animation-delay: .16s; }
+.wrap > *:nth-child(n+6) { animation-delay: .2s; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

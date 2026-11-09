@@ -21,6 +21,10 @@ Learn DevTools by doing: each mission is a small web page with one real-world bu
 
 Answers are checked on the page, hints unlock one at a time, and progress is saved in your browser (no account, no tracking).
 
+| Mission map | A mission | Solved |
+|---|---|---|
+| ![Mission map with belt progress](docs/assets/screens/mission-map.png) | ![Mission page with the broken page in a browser frame](docs/assets/screens/mission-page.png) | ![Solved state](docs/assets/screens/mission-solved.png) |
+
 ## Who it's for
 
 Developers, QA engineers and support engineers who open DevTools every day but only use Elements and a bit of Network. By the end you'll know which tab answers which question, and you'll be able to teach it.

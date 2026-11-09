@@ -12,78 +12,127 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="lab.css">
   <style>
-    .hero { background: linear-gradient(135deg, #0b1f3a, #312e81 60%, #4f46e5); color: #fff; border-radius: 16px; padding: 28px; margin: 12px 0 20px; }
-    .hero h1 { font-size: 30px; line-height: 1.2; margin: 0 0 8px; }
-    .hero p { color: #dbe4ff; margin: 0 0 16px; }
-    .hero .btn { background: #fff; color: #312e81; }
-    .belt { display: flex; align-items: center; gap: 16px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin-bottom: 18px; }
-    .belt-swatch { width: 64px; height: 18px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); }
-    .bar { flex: 1; height: 10px; background: #eef0f6; border-radius: 99px; overflow: hidden; }
-    .bar i { display: block; height: 100%; background: #16a34a; }
-    .mlist { display: grid; gap: 10px; }
-    .mlist a { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; text-decoration: none; color: inherit; }
-    .mlist a:hover { border-color: var(--accent); }
-    .num { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #eef2ff; color: #3730a3; font-weight: 700; }
-    .done .num { background: #16a34a; color: #fff; }
-    .meta { color: var(--muted); font-size: 13px; }
-    .share { background: #fff; border: 2px dashed #a5b4fc; border-radius: 14px; padding: 18px; margin: 20px 0; }
-    .share canvas { max-width: 100%; border-radius: 10px; display: block; margin: 12px 0; }
+    .hero { position: relative; overflow: hidden; border-radius: 22px; padding: 44px 40px; margin: 6px 0 26px;
+      background: radial-gradient(600px 300px at 85% 20%, rgba(34,211,238,.25), transparent 60%), linear-gradient(135deg, #111a3a, #1e1b4b 55%, #312e81);
+      border: 1px solid var(--line-strong); box-shadow: var(--shadow); }
+    .hero::after { content: "🥋"; position: absolute; right: 36px; bottom: -14px; font-size: 150px; opacity: .14; transform: rotate(-12deg); }
+    .hero .kicker { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-2); font-weight: 800; }
+    .hero h1 { font-size: clamp(32px, 5vw, 54px); margin: 10px 0 14px; }
+    .hero p { color: #c7cdea; max-width: 640px; font-size: 17px; margin: 0 0 22px; }
+    .hero .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 24px; }
+    .hero .chips span { font-size: 13px; padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid var(--line); color: #dbe1ff; }
+    .hero .btn.big { font-size: 17px; padding: 15px 24px; }
+    .belt { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 22px; padding: 20px 24px; margin-bottom: 26px; }
+    .ring { --p: 0; width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center;
+      background: conic-gradient(var(--ok) calc(var(--p) * 1%), rgba(148,163,255,.14) 0); box-shadow: 0 0 30px -6px rgba(52,211,153,.4); }
+    .ring > div { width: 74px; height: 74px; border-radius: 50%; background: var(--panel); display: grid; place-items: center; font-weight: 800; font-size: 20px; }
+    .belt-name { font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .belt-swatch { width: 54px; height: 14px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+    .meta { color: var(--muted); font-size: 14px; }
+    .belts { display: flex; gap: 6px; margin-top: 10px; }
+    .belts i { width: 28px; height: 8px; border-radius: 3px; opacity: .3; }
+    .belts i.on { opacity: 1; box-shadow: 0 0 8px currentColor; }
+    .section-title { display: flex; justify-content: space-between; align-items: baseline; margin: 6px 0 12px; }
+    .section-title h2 { margin: 0; font-size: 20px; }
+    .mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+    .mcard { --c: var(--accent); position: relative; display: flex; flex-direction: column; gap: 10px; min-height: 178px; padding: 18px; border-radius: 18px;
+      text-decoration: none; color: var(--ink); background: linear-gradient(180deg, rgba(20,29,54,.95), rgba(13,19,38,.95));
+      border: 1px solid var(--line); box-shadow: var(--shadow); transition: transform .15s, border-color .15s, box-shadow .15s; overflow: hidden; }
+    .mcard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--c); opacity: .9; }
+    .mcard:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--c) 60%, transparent); box-shadow: 0 24px 50px -20px color-mix(in srgb, var(--c) 55%, transparent); }
+    .mcard .top { display: flex; justify-content: space-between; align-items: center; }
+    .mcard .icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px;
+      background: color-mix(in srgb, var(--c) 16%, transparent); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); }
+    .mcard .n { font: 800 13px ui-monospace, Menlo, monospace; color: var(--muted); }
+    .mcard b { font-size: 17px; line-height: 1.3; }
+    .mcard .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
+    .mcard .tabname { color: var(--c); font-weight: 700; }
+    .mcard .state { font-weight: 700; color: var(--ink); }
+    .mcard.done .state { color: var(--ok); }
+    .mcard.done .icon::after { content: "✓"; position: absolute; top: 14px; right: 14px; width: 24px; height: 24px; border-radius: 50%;
+      display: grid; place-items: center; background: var(--ok); color: #052e16; font-size: 14px; font-weight: 900; }
+    .mcard.next { border-color: color-mix(in srgb, var(--c) 70%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent), 0 24px 60px -18px color-mix(in srgb, var(--c) 70%, transparent); }
+    .mcard.next::after { content: "UP NEXT"; position: absolute; top: 16px; right: 14px; font: 800 10px/1 -apple-system, sans-serif; letter-spacing: .12em;
+      padding: 5px 8px; border-radius: 999px; background: var(--c); color: #0b1020; }
+    .mcard.next .n, .mcard.done .n { visibility: hidden; }
+    .mcard .foot > span:first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 8px; }
+    .mcard .state { white-space: nowrap; }
+    .share { margin: 30px 0 0; padding: 22px 24px; border-radius: 20px; background: radial-gradient(500px 200px at 0 0, rgba(129,140,248,.25), transparent 70%), var(--panel);
+      border: 1px solid var(--line-strong); box-shadow: var(--shadow); }
+    .share > b { font-size: 20px; }
+    .share canvas { width: 100%; max-width: 640px; border-radius: 14px; display: block; margin: 14px 0; box-shadow: 0 20px 50px -20px #000; }
+    .foot-note { margin-top: 26px; text-align: center; }
+    @media (max-width: 640px) { .hero { padding: 30px 22px; } .belt { grid-template-columns: auto 1fr; } .belt .meta.r { display: none; } }
   </style>
 </head>
 <body><div class="wrap">
-  <p class="crumbs"><a href="../">📖 Reference guide</a> · <a href="taskboard/">🧪 TaskBoard playground</a> · <a href="https://github.com/sachinG549/devtools-dojo">⭐ GitHub</a></p>
+  <p class="crumbs"><a href="../">📖 Reference guide</a><a href="taskboard/">🧪 TaskBoard playground</a><a href="https://github.com/sachinG549/devtools-dojo">⭐ Star on GitHub</a></p>
 
   <div class="hero">
+    <div class="kicker">DevTools Dojo · learn by doing</div>
     <h1>8 broken pages.<br>Fix them with Chrome DevTools.</h1>
-    <p>Each mission has one real-world bug. Find it with DevTools, type your answer, earn your belt. Free, nothing to install, about 60 minutes in total.</p>
-    <a class="btn" id="cta" href="00-warm-up/">Start mission 1 →</a>
+    <p>Each mission is a real-world bug. Find it with DevTools, type your answer, earn your belt. No signup, nothing to install, about 60 minutes in total.</p>
+    <div class="chips"><span>🧱 Elements</span><span>⌨️ Console</span><span>🐛 Sources</span><span>🌐 Network</span><span>⚡ Performance</span><span>🧠 Memory</span><span>🗄️ Application</span></div>
+    <a class="primary btn big" id="cta" href="00-warm-up/">Start mission 1 →</a>
   </div>
 
   <div class="dojo-mobile">📱 The missions need DevTools, which runs only on a desktop browser. Send this link to your computer. Meanwhile, the <a href="../">reference guide</a> works fine on a phone.</div>
 
-  <div class="belt">
-    <div class="belt-swatch" id="swatch"></div>
-    <div><b id="beltName">White belt</b><div class="meta" id="count">0 of 8 solved</div></div>
-    <div class="bar"><i id="bar" style="width:0"></i></div>
+  <div class="card belt">
+    <div class="ring" id="ring"><div id="pct">0%</div></div>
+    <div>
+      <div class="belt-name"><span class="belt-swatch" id="swatch"></span><span id="beltName">White belt</span></div>
+      <div class="meta" id="count">0 of 8 solved</div>
+      <div class="belts" id="belts"></div>
+    </div>
+    <div class="meta r" id="nextBelt"></div>
   </div>
 
-  <div class="mlist" id="list"></div>
+  <div class="section-title"><h2>Your missions</h2><span class="meta">Hints unlock one at a time</span></div>
+  <div class="mgrid" id="list"></div>
 
   <div class="share" id="share" hidden>
     <b>🥋 Share your progress</b>
-    <p class="meta">Download your card and post it, or share the link. Your progress is saved only in this browser.</p>
+    <p class="meta">Download your belt card and post it, or share the link. Progress is saved only in this browser.</p>
     <canvas id="card" width="1200" height="630"></canvas>
     <div class="dojo-row">
-      <button class="primary" id="dl">Download card (PNG)</button>
+      <button class="primary" id="dl">⬇ Download card</button>
       <a class="btn ghost" id="li" target="_blank" rel="noopener">Share on LinkedIn</a>
       <button class="btn ghost" id="copy" type="button">Copy post text</button>
       <span class="dojo-msg" id="copied"></span>
     </div>
   </div>
 
-  <p class="meta">Stuck? Each mission has hints that unlock one at a time. Want the theory? Every tab is explained in the <a href="../">reference guide</a>. <a href="#" id="reset">Reset progress</a></p>
+  <p class="meta foot-note">Want the theory? Every tab is explained in the <a href="../">reference guide</a> · <a href="#" id="reset">Reset progress</a></p>
 </div>
 
 <script type="module">
-  import { MISSIONS, getProgress, solvedCount, beltFor } from './mission.js';
+  import { MISSIONS, BELTS, getProgress, solvedCount, beltFor, tabOf } from './mission.js';
   const p = getProgress(), n = solvedCount(p), belt = beltFor(n), total = MISSIONS.length;
   const $ = (id) => document.getElementById(id);
 
   $('swatch').style.background = belt.color;
   $('beltName').textContent = belt.name;
   $('count').textContent = `${n} of ${total} solved`;
-  $('bar').style.width = (n / total * 100) + '%';
+  const pct = Math.round(n / total * 100);
+  $('ring').style.setProperty('--p', pct); $('pct').textContent = pct + '%';
+  $('belts').innerHTML = BELTS.map((b) => `<i title="${b.name}" style="background:${b.color};color:${b.color}" class="${n >= b.min ? 'on' : ''}"></i>`).join('');
+  const up = BELTS.find((b) => b.min > n);
+  $('nextBelt').textContent = up ? `${up.min - n} more to ${up.name}` : 'Highest belt reached 🎉';
 
   const next = MISSIONS.find((m) => !p[m.id]?.solved);
   if (n > 0 && next) $('cta').textContent = `Continue: mission ${MISSIONS.indexOf(next) + 1} →`, $('cta').href = next.slug + '/';
   if (!next) $('cta').textContent = '🥋 All solved. Share your belt ↓', $('cta').href = '#share';
 
-  $('list').innerHTML = MISSIONS.map((m, i) => `
-    <a href="${m.slug}/" class="${p[m.id]?.solved ? 'done' : ''}">
-      <span class="num">${p[m.id]?.solved ? '✓' : i + 1}</span>
-      <span><b>${m.title}</b><div class="meta">${m.tab} · ~${m.mins} min${p[m.id]?.solved && !p[m.id].hints ? ' · ⭐ no hints' : ''}</div></span>
-      <span class="meta">${p[m.id]?.solved ? 'Solved' : 'Start →'}</span>
-    </a>`).join('');
+  $('list').innerHTML = MISSIONS.map((m, i) => {
+    const t = tabOf(m), done = p[m.id]?.solved, isNext = next && m.id === next.id;
+    return `<a href="${m.slug}/" class="mcard ${done ? 'done' : ''} ${isNext ? 'next' : ''}" style="--c:${t.color}">
+      <span class="top"><span class="icon">${t.icon}</span><span class="n">#${i + 1}</span></span>
+      <b>${m.title}</b>
+      <span class="foot"><span><span class="tabname">${m.tab}</span> · ~${m.mins} min</span>
+        <span class="state">${done ? (p[m.id].hints ? 'Solved' : '⭐ Solved') : isNext ? 'Start →' : 'Open'}</span></span>
+    </a>`;
+  }).join('');
 
   const SITE = 'https://sachinG549.github.io/devtools-dojo/labs/';
   const text = n === total
